@@ -1,0 +1,43 @@
+.nh
+.TH "GH-PROJECT-ITEM-DELETE" "1" "Jul 2023" "GitHub CLI 2.32.1" "GitHub CLI manual"
+
+.SH NAME
+.PP
+gh-project-item-delete - Delete an item from a project by ID
+
+
+.SH SYNOPSIS
+.PP
+\fB\fCgh project item-delete [<number>] [flags]\fR
+
+
+.SH OPTIONS
+.TP
+\fB\fC--format\fR \fB\fC<string>\fR
+Output format: {json}
+
+.TP
+\fB\fC--id\fR \fB\fC<string>\fR
+ID of the item to delete
+
+.TP
+\fB\fC--owner\fR \fB\fC<string>\fR
+Login of the owner. Use "@me" for the current user.
+
+
+.SH EXAMPLE
+.PP
+.RS
+
+.nf
+# delete an item in the current user's project "1"
+gh project item-delete 1 --owner "@me" --id <item-ID>
+
+
+.fi
+.RE
+
+
+.SH SEE ALSO
+.PP
+\fB\fCgh-project(1)\fR

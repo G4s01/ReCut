@@ -1,0 +1,51 @@
+.nh
+.TH "GH-RUN-RERUN" "1" "Jul 2023" "GitHub CLI 2.32.1" "GitHub CLI manual"
+
+.SH NAME
+.PP
+gh-run-rerun - Rerun a run
+
+
+.SH SYNOPSIS
+.PP
+\fB\fCgh run rerun [<run-id>] [flags]\fR
+
+
+.SH DESCRIPTION
+.PP
+Rerun an entire run, only failed jobs, or a specific job from a run.
+
+.PP
+Note that due for historical reasons, the \fB\fC--job\fR flag may not take what you expect.
+Specifically, when navigating to a job in the browser, the URL looks like this:
+\fB\fChttps://github.com/<org>/<repo>/actions/runs/<run-id>/jobs/<number>\fR\&.
+
+.PP
+However, this \fB\fCnumber\fR should not be used with the \fB\fC--job\fR flag and will result in the
+API returning \fB\fC404 NOT FOUND\fR\&. Instead, you can get the correct job IDs using the following command:
+\fB\fCgh run view <run-id> --json jobs --jq '.jobs[] | {name, databaseId}'\fR\&.
+
+
+.SH OPTIONS
+.TP
+\fB\fC-d\fR, \fB\fC--debug\fR
+Rerun with debug logging
+
+.TP
+\fB\fC--failed\fR
+Rerun only failed jobs, including dependencies
+
+.TP
+\fB\fC-j\fR, \fB\fC--job\fR \fB\fC<string>\fR
+Rerun a specific job from a run, including dependencies
+
+
+.SH OPTIONS INHERITED FROM PARENT COMMANDS
+.TP
+\fB\fC-R\fR, \fB\fC--repo\fR \fB\fC<[HOST/]OWNER/REPO>\fR
+Select another repository using the [HOST/]OWNER/REPO format
+
+
+.SH SEE ALSO
+.PP
+\fB\fCgh-run(1)\fR

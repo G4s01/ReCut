@@ -1,0 +1,56 @@
+.nh
+.TH "GH-RULESET" "1" "Jul 2023" "GitHub CLI 2.32.1" "GitHub CLI manual"
+
+.SH NAME
+.PP
+gh-ruleset - View info about repo rulesets
+
+
+.SH SYNOPSIS
+.PP
+\fB\fCgh ruleset <command> [flags]\fR
+
+
+.SH DESCRIPTION
+.PP
+Repository rulesets are a way to define a set of rules that apply to a repository.
+These commands allow you to view information about them.
+
+
+.SH AVAILABLE COMMANDS
+.TP
+\fB\fCgh-ruleset-check(1)\fR
+View rules that would apply to a given branch
+
+.TP
+\fB\fCgh-ruleset-list(1)\fR
+List rulesets for a repository or organization
+
+.TP
+\fB\fCgh-ruleset-view(1)\fR
+View information about a ruleset
+
+
+.SH OPTIONS
+.TP
+\fB\fC-R\fR, \fB\fC--repo\fR \fB\fC<[HOST/]OWNER/REPO>\fR
+Select another repository using the [HOST/]OWNER/REPO format
+
+
+.SH EXAMPLE
+.PP
+.RS
+
+.nf
+$ gh ruleset list
+$ gh ruleset view --repo OWNER/REPO --web
+$ gh ruleset check branch-name
+
+
+.fi
+.RE
+
+
+.SH SEE ALSO
+.PP
+\fB\fCgh(1)\fR

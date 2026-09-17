@@ -1,0 +1,52 @@
+.nh
+.TH "GH-PR-DIFF" "1" "Jul 2023" "GitHub CLI 2.32.1" "GitHub CLI manual"
+
+.SH NAME
+.PP
+gh-pr-diff - View changes in a pull request
+
+
+.SH SYNOPSIS
+.PP
+\fB\fCgh pr diff [<number> | <url> | <branch>] [flags]\fR
+
+
+.SH DESCRIPTION
+.PP
+View changes in a pull request.
+
+.PP
+Without an argument, the pull request that belongs to the current branch
+is selected.
+
+.PP
+With '--web', open the pull request diff in a web browser instead.
+
+
+.SH OPTIONS
+.TP
+\fB\fC--color\fR \fB\fC<string>\fR
+Use color in diff output: {always|never|auto}
+
+.TP
+\fB\fC--name-only\fR
+Display only names of changed files
+
+.TP
+\fB\fC--patch\fR
+Display diff in patch format
+
+.TP
+\fB\fC-w\fR, \fB\fC--web\fR
+Open the pull request diff in the browser
+
+
+.SH OPTIONS INHERITED FROM PARENT COMMANDS
+.TP
+\fB\fC-R\fR, \fB\fC--repo\fR \fB\fC<[HOST/]OWNER/REPO>\fR
+Select another repository using the [HOST/]OWNER/REPO format
+
+
+.SH SEE ALSO
+.PP
+\fB\fCgh-pr(1)\fR

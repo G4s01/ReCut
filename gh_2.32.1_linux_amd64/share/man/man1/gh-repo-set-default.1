@@ -1,0 +1,72 @@
+.nh
+.TH "GH-REPO-SET-DEFAULT" "1" "Jul 2023" "GitHub CLI 2.32.1" "GitHub CLI manual"
+
+.SH NAME
+.PP
+gh-repo-set-default - Configure default repository for this directory
+
+
+.SH SYNOPSIS
+.PP
+\fB\fCgh repo set-default [<repository>] [flags]\fR
+
+
+.SH DESCRIPTION
+.PP
+This command sets the default remote repository to use when querying the
+GitHub API for the locally cloned repository.
+
+.PP
+gh uses the default repository for things like:
+
+.RS
+.IP \(bu 2
+viewing and creating pull requests
+.IP \(bu 2
+viewing and creating issues
+.IP \(bu 2
+viewing and creating releases
+.IP \(bu 2
+working with Actions
+.IP \(bu 2
+adding repository and environment secrets
+
+.RE
+
+
+.SH OPTIONS
+.TP
+\fB\fC-u\fR, \fB\fC--unset\fR
+unset the current default repository
+
+.TP
+\fB\fC-v\fR, \fB\fC--view\fR
+view the current default repository
+
+
+.SH EXAMPLE
+.PP
+.RS
+
+.nf
+Interactively select a default repository:
+$ gh repo set-default
+
+Set a repository explicitly:
+$ gh repo set-default owner/repo
+
+View the current default repository:
+$ gh repo set-default --view
+
+Show more repository options in the interactive picker:
+$ git remote add newrepo https://github.com/owner/repo
+$ gh repo set-default
+
+
+.fi
+.RE
+
+
+.SH SEE ALSO
+.PP
+\fB\fCgh-repo(1)\fR

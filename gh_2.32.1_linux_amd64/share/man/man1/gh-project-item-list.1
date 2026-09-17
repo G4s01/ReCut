@@ -1,0 +1,43 @@
+.nh
+.TH "GH-PROJECT-ITEM-LIST" "1" "Jul 2023" "GitHub CLI 2.32.1" "GitHub CLI manual"
+
+.SH NAME
+.PP
+gh-project-item-list - List the items in a project
+
+
+.SH SYNOPSIS
+.PP
+\fB\fCgh project item-list [<number>] [flags]\fR
+
+
+.SH OPTIONS
+.TP
+\fB\fC--format\fR \fB\fC<string>\fR
+Output format: {json}
+
+.TP
+\fB\fC-L\fR, \fB\fC--limit\fR \fB\fC<int>\fR
+Maximum number of items to fetch
+
+.TP
+\fB\fC--owner\fR \fB\fC<string>\fR
+Login of the owner. Use "@me" for the current user.
+
+
+.SH EXAMPLE
+.PP
+.RS
+
+.nf
+# list the items in the current users's project "1"
+gh project item-list 1 --owner "@me"
+
+
+.fi
+.RE
+
+
+.SH SEE ALSO
+.PP
+\fB\fCgh-project(1)\fR

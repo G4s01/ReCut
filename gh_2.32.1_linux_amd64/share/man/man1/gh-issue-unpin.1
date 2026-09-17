@@ -1,0 +1,49 @@
+.nh
+.TH "GH-ISSUE-UNPIN" "1" "Jul 2023" "GitHub CLI 2.32.1" "GitHub CLI manual"
+
+.SH NAME
+.PP
+gh-issue-unpin - Unpin a issue
+
+
+.SH SYNOPSIS
+.PP
+\fB\fCgh issue unpin {<number> | <url>} [flags]\fR
+
+
+.SH DESCRIPTION
+.PP
+Unpin an issue from a repository.
+
+.PP
+The issue can be specified by issue number or URL.
+
+
+.SH OPTIONS INHERITED FROM PARENT COMMANDS
+.TP
+\fB\fC-R\fR, \fB\fC--repo\fR \fB\fC<[HOST/]OWNER/REPO>\fR
+Select another repository using the [HOST/]OWNER/REPO format
+
+
+.SH EXAMPLE
+.PP
+.RS
+
+.nf
+# Unpin issue from the current repository
+$ gh issue unpin 23
+
+# Unpin issue by URL
+$ gh issue unpin https://github.com/owner/repo/issues/23
+
+# Unpin an issue from specific repository
+$ gh issue unpin 23 --repo owner/repo
+
+
+.fi
+.RE
+
+
+.SH SEE ALSO
+.PP
+\fB\fCgh-issue(1)\fR

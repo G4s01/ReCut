@@ -1,0 +1,64 @@
+.nh
+.TH "GH-CODESPACE-VIEW" "1" "Jul 2023" "GitHub CLI 2.32.1" "GitHub CLI manual"
+
+.SH NAME
+.PP
+gh-codespace-view - View details about a codespace
+
+
+.SH SYNOPSIS
+.PP
+\fB\fCgh codespace view [flags]\fR
+
+
+.SH OPTIONS
+.TP
+\fB\fC-c\fR, \fB\fC--codespace\fR \fB\fC<string>\fR
+Name of the codespace
+
+.TP
+\fB\fC-q\fR, \fB\fC--jq\fR \fB\fC<expression>\fR
+Filter JSON output using a jq expression
+
+.TP
+\fB\fC--json\fR \fB\fC<fields>\fR
+Output JSON with the specified fields
+
+.TP
+\fB\fC-R\fR, \fB\fC--repo\fR \fB\fC<string>\fR
+Filter codespace selection by repository name (user/repo)
+
+.TP
+\fB\fC--repo-owner\fR \fB\fC<string>\fR
+Filter codespace selection by repository owner (username or org)
+
+.TP
+\fB\fC-t\fR, \fB\fC--template\fR \fB\fC<string>\fR
+Format JSON output using a Go template; see "gh help formatting"
+
+
+.SH EXAMPLE
+.PP
+.RS
+
+.nf
+# select a codespace from a list of all codespaces you own
+$ gh cs view	
+
+# view the details of a specific codespace
+$ gh cs view -c codespace-name-12345
+
+# view the list of all available fields for a codespace
+$ gh cs view --json
+
+# view specific fields for a codespace
+$ gh cs view --json displayName,machineDisplayName,state
+
+
+.fi
+.RE
+
+
+.SH SEE ALSO
+.PP
+\fB\fCgh-codespace(1)\fR

@@ -1,0 +1,43 @@
+.nh
+.TH "GH-PROJECT-ITEM-ADD" "1" "Jul 2023" "GitHub CLI 2.32.1" "GitHub CLI manual"
+
+.SH NAME
+.PP
+gh-project-item-add - Add a pull request or an issue to a project
+
+
+.SH SYNOPSIS
+.PP
+\fB\fCgh project item-add [<number>] [flags]\fR
+
+
+.SH OPTIONS
+.TP
+\fB\fC--format\fR \fB\fC<string>\fR
+Output format: {json}
+
+.TP
+\fB\fC--owner\fR \fB\fC<string>\fR
+Login of the owner. Use "@me" for the current user.
+
+.TP
+\fB\fC--url\fR \fB\fC<string>\fR
+URL of the issue or pull request to add to the project
+
+
+.SH EXAMPLE
+.PP
+.RS
+
+.nf
+# add an item to monalisa's project "1"
+gh project item-add 1 --owner monalisa --url https://github.com/monalisa/myproject/issues/23
+
+
+.fi
+.RE
+
+
+.SH SEE ALSO
+.PP
+\fB\fCgh-project(1)\fR

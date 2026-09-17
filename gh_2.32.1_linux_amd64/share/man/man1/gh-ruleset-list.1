@@ -1,0 +1,76 @@
+.nh
+.TH "GH-RULESET-LIST" "1" "Jul 2023" "GitHub CLI 2.32.1" "GitHub CLI manual"
+
+.SH NAME
+.PP
+gh-ruleset-list - List rulesets for a repository or organization
+
+
+.SH SYNOPSIS
+.PP
+\fB\fCgh ruleset list [flags]\fR
+
+
+.SH DESCRIPTION
+.PP
+List GitHub rulesets for a repository or organization.
+
+.PP
+If no options are provided, the current repository's rulesets are listed. You can query a different
+repository's rulesets by using the --repo flag. You can also use the --org flag to list rulesets
+configured for the provided organization.
+
+.PP
+Use the --parents flag to control whether rulesets configured at higher levels that also apply to the provided
+repository or organization should be returned. The default is true.
+
+.PP
+Your access token must have the admin:org scope to use the --org flag, which can be granted by running "gh auth refresh -s admin:org".
+
+
+.SH OPTIONS
+.TP
+\fB\fC-L\fR, \fB\fC--limit\fR \fB\fC<int>\fR
+Maximum number of rulesets to list
+
+.TP
+\fB\fC-o\fR, \fB\fC--org\fR \fB\fC<string>\fR
+List organization-wide rulesets for the provided organization
+
+.TP
+\fB\fC-p\fR, \fB\fC--parents\fR
+Whether to include rulesets configured at higher levels that also apply
+
+.TP
+\fB\fC-w\fR, \fB\fC--web\fR
+Open the list of rulesets in the web browser
+
+
+.SH OPTIONS INHERITED FROM PARENT COMMANDS
+.TP
+\fB\fC-R\fR, \fB\fC--repo\fR \fB\fC<[HOST/]OWNER/REPO>\fR
+Select another repository using the [HOST/]OWNER/REPO format
+
+
+.SH EXAMPLE
+.PP
+.RS
+
+.nf
+# List rulesets in the current repository
+$ gh ruleset list
+
+# List rulesets in a different repository, including those configured at higher levels
+$ gh ruleset list --repo owner/repo --parents
+
+# List rulesets in an organization
+$ gh ruleset list --org org-name
+
+
+.fi
+.RE
+
+
+.SH SEE ALSO
+.PP
+\fB\fCgh-ruleset(1)\fR

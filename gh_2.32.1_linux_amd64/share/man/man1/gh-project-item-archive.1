@@ -1,0 +1,47 @@
+.nh
+.TH "GH-PROJECT-ITEM-ARCHIVE" "1" "Jul 2023" "GitHub CLI 2.32.1" "GitHub CLI manual"
+
+.SH NAME
+.PP
+gh-project-item-archive - Archive an item in a project
+
+
+.SH SYNOPSIS
+.PP
+\fB\fCgh project item-archive [<number>] [flags]\fR
+
+
+.SH OPTIONS
+.TP
+\fB\fC--format\fR \fB\fC<string>\fR
+Output format: {json}
+
+.TP
+\fB\fC--id\fR \fB\fC<string>\fR
+ID of the item to archive
+
+.TP
+\fB\fC--owner\fR \fB\fC<string>\fR
+Login of the owner. Use "@me" for the current user.
+
+.TP
+\fB\fC--undo\fR
+Unarchive an item
+
+
+.SH EXAMPLE
+.PP
+.RS
+
+.nf
+# archive an item in the current user's project "1"
+gh project item-archive 1 --owner "@me" --id <item-ID>
+
+
+.fi
+.RE
+
+
+.SH SEE ALSO
+.PP
+\fB\fCgh-project(1)\fR

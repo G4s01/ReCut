@@ -1,0 +1,38 @@
+.nh
+.TH "GH-ORG-LIST" "1" "Jul 2023" "GitHub CLI 2.32.1" "GitHub CLI manual"
+
+.SH NAME
+.PP
+gh-org-list - List organizations for the authenticated user.
+
+
+.SH SYNOPSIS
+.PP
+\fB\fCgh org list [flags]\fR
+
+
+.SH OPTIONS
+.TP
+\fB\fC-L\fR, \fB\fC--limit\fR \fB\fC<int>\fR
+Maximum number of organizations to list
+
+
+.SH EXAMPLE
+.PP
+.RS
+
+.nf
+# List the first 30 organizations
+$ gh org list
+
+# List more organizations
+$ gh org list --limit 100
+
+
+.fi
+.RE
+
+
+.SH SEE ALSO
+.PP
+\fB\fCgh-org(1)\fR

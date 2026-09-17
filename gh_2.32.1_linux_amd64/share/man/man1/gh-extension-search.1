@@ -1,0 +1,137 @@
+.nh
+.TH "GH-EXTENSION-SEARCH" "1" "Jul 2023" "GitHub CLI 2.32.1" "GitHub CLI manual"
+
+.SH NAME
+.PP
+gh-extension-search - Search extensions to the GitHub CLI
+
+
+.SH SYNOPSIS
+.PP
+\fB\fCgh extension search [<query>] [flags]\fR
+
+
+.SH DESCRIPTION
+.PP
+Search for gh extensions.
+
+.PP
+With no arguments, this command prints out the first 30 extensions
+available to install sorted by number of stars. More extensions can
+be fetched by specifying a higher limit with the --limit flag.
+
+.PP
+When connected to a terminal, this command prints out three columns.
+The first has a ✓ if the extension is already installed locally. The
+second is the full name of the extension repository in NAME/OWNER
+format. The third is the extension's description.
+
+.PP
+When not connected to a terminal, the ✓ character is rendered as the
+word "installed" but otherwise the order and content of the columns
+is the same.
+
+.PP
+This command behaves similarly to 'gh search repos' but does not
+support as many search qualifiers. For a finer grained search of
+extensions, try using:
+
+.PP
+.RS
+
+.nf
+gh search repos --topic "gh-extension"
+
+.fi
+.RE
+
+.PP
+and adding qualifiers as needed. See 'gh help search repos' to learn
+more about repository search.
+
+.PP
+For listing just the extensions that are already installed locally,
+see:
+
+.PP
+.RS
+
+.nf
+gh ext list
+
+.fi
+.RE
+
+
+.SH OPTIONS
+.TP
+\fB\fC-q\fR, \fB\fC--jq\fR \fB\fC<expression>\fR
+Filter JSON output using a jq expression
+
+.TP
+\fB\fC--json\fR \fB\fC<fields>\fR
+Output JSON with the specified fields
+
+.TP
+\fB\fC--license\fR \fB\fC<strings>\fR
+Filter based on license type
+
+.TP
+\fB\fC-L\fR, \fB\fC--limit\fR \fB\fC<int>\fR
+Maximum number of extensions to fetch
+
+.TP
+\fB\fC--order\fR \fB\fC<string>\fR
+Order of repositories returned, ignored unless '--sort' flag is specified: {asc|desc}
+
+.TP
+\fB\fC--owner\fR \fB\fC<strings>\fR
+Filter on owner
+
+.TP
+\fB\fC--sort\fR \fB\fC<string>\fR
+Sort fetched repositories: {forks|help-wanted-issues|stars|updated}
+
+.TP
+\fB\fC-t\fR, \fB\fC--template\fR \fB\fC<string>\fR
+Format JSON output using a Go template; see "gh help formatting"
+
+.TP
+\fB\fC-w\fR, \fB\fC--web\fR
+Open the search query in the web browser
+
+
+.SH EXAMPLE
+.PP
+.RS
+
+.nf
+# List the first 30 extensions sorted by star count, descending
+$ gh ext search
+
+# List more extensions
+$ gh ext search --limit 300
+
+# List extensions matching the term "branch"
+$ gh ext search branch
+
+# List extensions owned by organization "github"
+$ gh ext search --owner github
+
+# List extensions, sorting by recently updated, ascending
+$ gh ext search --sort updated --order asc
+
+# List extensions, filtering by license
+$ gh ext search --license MIT
+
+# Open search results in the browser
+$ gh ext search -w
+
+
+.fi
+.RE
+
+
+.SH SEE ALSO
+.PP
+\fB\fCgh-extension(1)\fR

@@ -1,0 +1,41 @@
+.nh
+.TH "GH-CODESPACE-PORTS-VISIBILITY" "1" "Jul 2023" "GitHub CLI 2.32.1" "GitHub CLI manual"
+
+.SH NAME
+.PP
+gh-codespace-ports-visibility - Change the visibility of the forwarded port
+
+
+.SH SYNOPSIS
+.PP
+\fB\fCgh codespace ports visibility <port>:{public|private|org}... [flags]\fR
+
+
+.SH OPTIONS INHERITED FROM PARENT COMMANDS
+.TP
+\fB\fC-c\fR, \fB\fC--codespace\fR \fB\fC<string>\fR
+Name of the codespace
+
+.TP
+\fB\fC-R\fR, \fB\fC--repo\fR \fB\fC<string>\fR
+Filter codespace selection by repository name (user/repo)
+
+.TP
+\fB\fC--repo-owner\fR \fB\fC<string>\fR
+Filter codespace selection by repository owner (username or org)
+
+
+.SH EXAMPLE
+.PP
+.RS
+
+.nf
+gh codespace ports visibility 80:org 3000:private 8000:public
+
+.fi
+.RE
+
+
+.SH SEE ALSO
+.PP
+\fB\fCgh-codespace-ports(1)\fR
