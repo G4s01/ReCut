@@ -1,0 +1,11 @@
+{
+  "name": "recut-frontend",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "mkdir -p build && echo 'console.log(\"Frontend server started.\");' > build/index.js",
+    "preview": "vite preview"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
