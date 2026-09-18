@@ -36,12 +36,9 @@ services:
     image: ghcr.io/g4s01/recut/backend:latest
     container_name: recut_backend
     restart: unless-stopped
-    # If using OpenWRT/Alpine hosts and experiencing yt-dlp DNS issues:
-    # Docker may fallback to 8.8.8.8 which OpenWRT might block. Set this to your router's LAN IP!
-    dns:
-      - 10.0.0.1 # Change this to your OpenWRT LAN IP (e.g., 192.168.1.1)
-    ports:
-      - "8000:8000" # Format is HOST:CONTAINER. Change the first port (left side) to expose on a different host port
+    # FIX for OpenWRT / Alpine DNS issues: Uses the host's native networking and DNS
+    network_mode: "host"
+    # Port mapping is ignored in host mode. Backend will run on port 8000.
     volumes:
       # Map a specific local directory for the extracted clips
       - ./my-clips:/app/downloads
@@ -50,8 +47,6 @@ services:
     environment:
       - HOST=0.0.0.0
       - PORT=8000
-    networks:
-      - recut_bridge
 
   frontend:
     image: ghcr.io/g4s01/recut/frontend:latest
@@ -62,8 +57,6 @@ services:
     environment:
       # Point the frontend to the backend's external URL (or use default if not set)
       - PUBLIC_API_URL=${API_BASE_URL:-http://localhost:8000}
-    depends_on:
-      - backend
     networks:
       - recut_bridge
 

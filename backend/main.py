@@ -86,6 +86,8 @@ async def get_info(req: InfoRequest) -> InfoResponse:
                 title=info.get('title')
             )
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             raise HTTPException(status_code=400, detail=str(e))
 
 def process_video(req: ClipRequest) -> str:
@@ -148,6 +150,8 @@ def process_video(req: ClipRequest) -> str:
                 
             return os.path.basename(filepath)
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             raise RuntimeError(str(e))
 
 @app.get("/api/download/{filename}")

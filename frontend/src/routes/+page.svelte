@@ -45,6 +45,7 @@
     if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
       const fetchInfo = async () => {
         infoLoading = true;
+        error = '';
         try {
           const res = await fetch(`${apiUrl}/api/info`, {
             method: 'POST',
@@ -61,9 +62,12 @@
             }
           } else {
             videoInfo = null;
+            const errData = await res.json().catch(() => null);
+            error = errData?.detail || 'Failed to fetch video info. Backend might be unreachable.';
           }
         } catch (e) {
           videoInfo = null;
+          error = 'Network error fetching video info.';
         } finally {
           infoLoading = false;
         }
