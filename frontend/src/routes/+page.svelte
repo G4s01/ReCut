@@ -216,13 +216,13 @@
   <div class="w-full max-w-6xl">
     
     <!-- Title Area (Centered Above Columns) -->
-    <div class="w-full mb-10 flex flex-col sm:flex-row justify-center items-center gap-6">
-      <div class="card bg-base-100 p-3 sm:p-5 shadow-lg border border-base-200 shrink-0">
-        <img src={recutLogo} alt="ReCut Logo" class="h-16 sm:h-24 w-auto" />
+    <div class="w-full mb-10 flex justify-center">
+      <div class="card bg-base-100 shadow-md border border-base-200 py-3 px-6 sm:py-4 sm:px-8 flex flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 rounded-3xl">
+        <img src={recutLogo} alt="ReCut Logo" class="h-8 sm:h-12 w-auto drop-shadow-sm" />
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary whitespace-nowrap">
+          Clip any video. Instantly.
+        </h1>
       </div>
-      <h1 class="text-3xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary text-center sm:text-left leading-tight sm:leading-tight">
-        Clip any video.<br />Instantly.
-      </h1>
     </div>
 
     <div class="flex flex-col lg:flex-row gap-10 w-full items-start justify-center">
