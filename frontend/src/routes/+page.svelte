@@ -175,12 +175,10 @@
     
     <div class="w-full space-y-6">
       <div class="text-center mb-8">
-        <h1 class="text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary">
-          Clip any video. Instantly.
+        <h1 class="text-3xl sm:text-5xl font-extrabold mb-4 flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary">
+          <span class="text-primary font-black tracking-tighter flex items-center drop-shadow-sm"><span class="bg-primary text-primary-content px-2 py-1 rounded-lg">Re</span>Cut</span>
+          <span>Clip any video. Instantly.</span>
         </h1>
-        <p class="text-lg opacity-80 font-medium">
-          Paste your link, pick your times, and grab your clip without re-encoding.
-        </p>
       </div>
 
       <div class="card bg-base-100 shadow-2xl border border-base-200">
@@ -385,18 +383,20 @@
               </div>
             {/if}
 
-            <button
-              type="submit"
-              class="btn btn-lg btn-block {formatType === 'video' ? 'btn-primary' : 'btn-secondary'} rounded-2xl text-lg font-bold shadow-xl hover:-translate-y-1 transition-transform"
-              disabled={loading || !url}
-            >
-              {#if loading}
-                <span class="loading loading-spinner"></span>
-                Processing your clip...
-              {:else}
-                <Scissors size={20} class="mr-2"/> Cut & Download
-              {/if}
-            </button>
+            <div class="aura aura-rainbow w-full">
+              <button
+                type="submit"
+                class="btn btn-lg btn-block {formatType === 'video' ? 'btn-primary' : 'btn-secondary'} rounded-2xl text-lg font-bold shadow-xl hover:-translate-y-1 transition-transform"
+                disabled={loading || !url}
+              >
+                {#if loading}
+                  <span class="loading loading-spinner"></span>
+                  Processing your clip...
+                {:else}
+                  <Scissors size={20} class="mr-2"/> Cut & Download
+                {/if}
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -431,8 +431,6 @@
             <div class="flex justify-center mb-2">
               <CheckCircle2 size={64} class="text-success-content drop-shadow-md" />
             </div>
-            <h2 class="text-4xl font-black">Success!</h2>
-            <p class="text-success-content/80 font-medium text-lg">Your clip is ready.</p>
             
             {#if formatType === 'video'}
               <div class="mt-4 rounded-xl overflow-hidden shadow-lg border border-success-content/20 bg-black">
