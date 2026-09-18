@@ -167,10 +167,10 @@
 </script>
 
 <div class="hero min-h-[calc(100vh-5rem)]">
-  <div class="hero-content flex-col lg:flex-row gap-10 w-full max-w-6xl items-start">
+  <div class="hero-content flex-col gap-10 w-full max-w-3xl items-center">
     
-    <div class="flex-1 w-full space-y-6">
-      <div class="text-left mb-8">
+    <div class="w-full space-y-6">
+      <div class="text-center mb-8">
         <h1 class="text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary">
           Clip any video. Instantly.
         </h1>
@@ -266,7 +266,7 @@
             </div>
             {/if}
             
-            {#if !videoInfo?.duration && !infoLoading}
+            {#if url && !videoInfo?.duration && !infoLoading}
             <!-- Fallback Time Selector if no duration available -->
             <div class="bg-base-200 p-6 rounded-2xl shadow-inner space-y-4">
               <div class="flex items-center gap-2 font-bold mb-2">
@@ -384,7 +384,7 @@
       </div>
     </div>
 
-    <div class="flex-1 w-full lg:sticky lg:top-24 space-y-6">
+    <div class="w-full space-y-6">
       {#if youtubeId && !result}
         <div class="card bg-base-100 shadow-xl border border-base-200 overflow-hidden">
           <div class="card-body p-0">
