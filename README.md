@@ -1,13 +1,13 @@
 <div align="center">
   <img src="frontend/src/lib/assets/ReCut.svg" alt="ReCut Logo" width="350" />
 
-  ### Clip any video. Instantly.
+### Clip any video. Instantly.
 
-  [![Svelte 5](https://img.shields.io/badge/Svelte_5-%23f1413d.svg?style=for-the-badge&logo=svelte&logoColor=white)](https://svelte.dev/)
-  [![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
-  [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS_v4-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-  [![daisyUI](https://img.shields.io/badge/daisyUI-5A0EF8?style=for-the-badge&logo=daisyui&logoColor=white)](https://daisyui.com/)
-  [![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Svelte 5](https://img.shields.io/badge/Svelte_5-%23f1413d.svg?style=for-the-badge&logo=svelte&logoColor=white)](https://svelte.dev/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS_v4-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![daisyUI](https://img.shields.io/badge/daisyUI-5A0EF8?style=for-the-badge&logo=daisyui&logoColor=white)](https://daisyui.com/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 
   <p align="center">
     A lightning-fast, modern web app to extract clips from videos instantly and <b>without re-encoding</b>.
@@ -28,13 +28,17 @@
 
 ## 📸 Screenshots
 
-> **Note**: Place your screenshots in the `assets/` folder at the root of the repository as `screenshot-pre.png` and `screenshot-post.png`.
+### 🌑 Dark Theme
 
-| Before: URL Input & Setup | After: Clip Generation & Preview |
-|:---:|:---:|
-| <img src="assets/screenshot-pre.png" alt="ReCut URL Input and Timeline Setup" width="400"/> | <img src="assets/screenshot-post.png" alt="ReCut Video Preview and Download" width="400"/> |
+|                                      1. URL Input                                       |                                    2. Setup & Timeline                                    |                                     3. Generated Clip                                      |
+| :-------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: |
+| <img src="assets/PREVIEW_DARK_PRE.png" alt="ReCut Dark Theme - URL Input" width="300"/> | <img src="assets/PREVIEW_DARK_MIDDLE.png" alt="ReCut Dark Theme - Timeline" width="300"/> | <img src="assets/PREVIEW_DARK_FINAL.png" alt="ReCut Dark Theme - Clip Ready" width="300"/> |
 
-*(Screenshots showcasing the timeline selection UI and the generated clip preview)*
+### ☀️ Light Theme
+
+|                                       1. URL Input                                        |                                     2. Setup & Timeline                                     |                                      3. Generated Clip                                       |
+| :---------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------: |
+| <img src="assets/PREVIEW_LIGHT_PRE.png" alt="ReCut Light Theme - URL Input" width="300"/> | <img src="assets/PREVIEW_LIGHT_MIDDLE.png" alt="ReCut Light Theme - Timeline" width="300"/> | <img src="assets/PREVIEW_LIGHT_FINAL.png" alt="ReCut Light Theme - Clip Ready" width="300"/> |
 
 ---
 
@@ -51,7 +55,7 @@ ReCut is composed of two loosely coupled services:
 
 The recommended way to deploy ReCut is via Docker Compose. Below is a complete, well-commented configuration that sets up both the frontend and backend.
 
-This configuration maps local host directories for both your downloaded clips and internal container data to guarantee persistence. 
+This configuration maps local host directories for both your downloaded clips and internal container data to guarantee persistence.
 
 > [!TIP]
 > The backend uses `network_mode: "host"` to bypass DNS restrictions often found on strict routers and firewalls (like OpenWRT/Alpine). If your Docker host doesn't require this, you can switch back to standard bridge networking.
@@ -95,6 +99,7 @@ docker compose up -d
 ```
 
 Once started:
+
 - Access the **Web UI** at `http://localhost:3000` (or your custom port/domain).
 - Access the **API Documentation** (Swagger UI) at `http://localhost:8000/docs`.
 
