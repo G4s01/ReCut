@@ -263,8 +263,8 @@
                   </div>
                 </div>
               </div>
+            </div>
             {/if}
-            
             {#if infoLoading}
             <!-- Skeleton Loader for Timeline -->
             <div class="bg-base-200 p-6 rounded-2xl shadow-inner space-y-4 animate-pulse">
