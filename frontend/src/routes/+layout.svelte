@@ -29,7 +29,9 @@
 	<header class="navbar bg-base-100 shadow-sm px-4 lg:px-8 flex justify-between items-center">
 		<div class="flex-1">
 			<a href="/" class="flex items-center">
-				<img src={recutLogo} alt="ReCut Logo" class="h-8 md:h-10 w-auto" />
+				<div class="card bg-base-100 p-1 sm:p-2 shadow-sm border border-base-200 shrink-0">
+					<img src={recutLogo} alt="ReCut Logo" class="h-6 md:h-8 w-auto" />
+				</div>
 			</a>
 		</div>
 		<div class="flex-none">

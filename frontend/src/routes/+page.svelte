@@ -212,19 +212,24 @@
   </div>
 {/snippet}
 
-<div class="hero min-h-[calc(100vh-5rem)] items-start pt-8 lg:pt-16">
-  <div class="hero-content flex-col lg:flex-row gap-10 w-full max-w-6xl items-start justify-center">
+<div class="min-h-[calc(100vh-5rem)] flex flex-col items-center pt-8 lg:pt-16 px-4">
+  <div class="w-full max-w-6xl">
     
-    <!-- Left Column (Form) -->
-    <div class="w-full lg:w-1/2 space-y-6">
-      <div class="text-center mb-8">
-        <h1 class="mb-4 flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary">
-          <!-- <img src={recutLogo} alt="ReCut Logo" class="h-16 sm:h-24 w-auto drop-shadow-md" /> -->
-          <span class="text-3xl sm:text-5xl font-extrabold ml-2">Clip any video. Instantly.</span>
-        </h1>
+    <!-- Title Area (Centered Above Columns) -->
+    <div class="w-full mb-10 flex flex-col sm:flex-row justify-center items-center gap-6">
+      <div class="card bg-base-100 p-3 sm:p-5 shadow-lg border border-base-200 shrink-0">
+        <img src={recutLogo} alt="ReCut Logo" class="h-16 sm:h-24 w-auto" />
       </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary text-center sm:text-left leading-tight sm:leading-tight">
+        Clip any video.<br />Instantly.
+      </h1>
+    </div>
 
-      <div class="card bg-base-100 shadow-2xl border border-base-200">
+    <div class="flex flex-col lg:flex-row gap-10 w-full items-start justify-center">
+      
+      <!-- Left Column (Form) -->
+      <div class="w-full lg:w-1/2">
+        <div class="card bg-base-100 shadow-2xl border border-base-200">
         <div class="card-body p-6 md:p-8">
           <form onsubmit={handleSubmit} class="space-y-8">
             <!-- URL Input -->
@@ -342,7 +347,7 @@
                   <div class="animate-in fade-in slide-in-from-top-2 duration-300 flex flex-wrap gap-4">
                     <label class="cursor-pointer label justify-start gap-3">
                       <input type="radio" name="format-opt-video" class="radio radio-primary" value="mp4" bind:group={selectedFormat} />
-                      <span class="label-text font-medium">MP4 (Best Quality)</span>
+                      <span class="label-text font-medium">MP4</span>
                     </label>
                     <label class="cursor-pointer label justify-start gap-3">
                       <input type="radio" name="format-opt-video" class="radio radio-primary" value="webm" bind:group={selectedFormat} />
@@ -412,7 +417,7 @@
                   download={result.filename}
                   class="btn btn-lg w-full bg-base-100 text-success hover:bg-base-200 border-none shadow-xl text-xl group h-auto py-4"
                 >
-                  <Download size={28} class="group-hover:scale-110 transition-transform mr-2"/> Download File
+                  <Download size={28} class="group-hover:scale-110 transition-transform mr-2"/> SCARICA
                 </a>
               </div>
             </div>
@@ -468,7 +473,7 @@
         <!-- Desktop Empty Placeholder -->
         <div class="hidden lg:flex flex-col items-center justify-center h-[calc(100%-1.5rem)] min-h-100 border-4 border-dashed border-base-300 rounded-3xl opacity-60 bg-base-100/30">
           <Video size={64} class="mb-4 opacity-50 text-base-content" />
-          <p class="font-black text-2xl uppercase tracking-widest text-base-content/70">PAREA ANTEPRIMA</p>
+          <p class="font-black text-2xl uppercase tracking-widest text-base-content/70">AREA ANTEPRIMA</p>
           <p class="text-base font-medium opacity-50 mt-2">INCOLLA UN URL PER INIZIARE</p>
         </div>
       {/if}
@@ -478,3 +483,4 @@
 </div>
 
 
+</div>
