@@ -3,6 +3,7 @@
 [![Svelte 5](https://img.shields.io/badge/Svelte_5-%23f1413d.svg?style=flat-square&logo=svelte&logoColor=white)](https://svelte.dev/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat-square&logo=fastapi)](https://fastapi.tiangolo.com/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS_v4-%2338B2AC.svg?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![daisyUI](https://img.shields.io/badge/daisyUI-5A0EF8?style=flat-square&logo=daisyui&logoColor=white)](https://daisyui.com/)
 [![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
 
 > A modern web app to extract clips from videos instantly and without re-encoding.
@@ -28,7 +29,7 @@ ReCut is composed of two loosely coupled services:
 
 The recommended way to deploy ReCut is via Docker Compose. Below is a complete, well-commented configuration that sets up both the frontend and backend.
 
-This configuration uses a custom **bridge network** for secure inter-container communication and specifically maps local host directories for both your downloaded clips and internal container data to guarantee persistence.
+This configuration maps local host directories for both your downloaded clips and internal container data to guarantee persistence. The backend uses host networking to bypass DNS restrictions often found on routers (like OpenWRT/Alpine).
 
 ```yaml
 services:
@@ -57,13 +58,6 @@ services:
     environment:
       # Point the frontend to the backend's external URL (or use default if not set)
       - PUBLIC_API_URL=${API_BASE_URL:-http://localhost:8000}
-    networks:
-      - recut_bridge
-
-# Explicitly define a bridge network for the services
-networks:
-  recut_bridge:
-    driver: bridge
 ```
 
 ### Running the application
