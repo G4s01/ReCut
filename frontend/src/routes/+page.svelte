@@ -263,6 +263,17 @@
                   </div>
                 </div>
               </div>
+            {/if}
+            
+            {#if infoLoading}
+            <!-- Skeleton Loader for Timeline -->
+            <div class="bg-base-200 p-6 rounded-2xl shadow-inner space-y-4 animate-pulse">
+              <div class="h-6 bg-base-300 rounded w-1/3 mb-4"></div>
+              <div class="h-2 bg-base-300 rounded-full w-full my-4"></div>
+              <div class="flex justify-between gap-6">
+                <div class="h-12 bg-base-300 rounded w-full"></div>
+                <div class="h-12 bg-base-300 rounded w-full"></div>
+              </div>
             </div>
             {/if}
             
@@ -370,20 +381,18 @@
               </div>
             {/if}
 
-            <div class="aura aura-rainbow w-full">
-              <button
-                type="submit"
-                class="btn btn-lg btn-block {formatType === 'video' ? 'btn-primary' : 'btn-secondary'} rounded-2xl text-lg font-bold shadow-xl hover:-translate-y-1 transition-transform"
-                disabled={loading || !url}
-              >
+            <button
+              type="submit"
+              class="btn btn-lg btn-block {formatType === 'video' ? 'btn-primary' : 'btn-secondary'} rounded-2xl text-lg font-bold shadow-xl hover:-translate-y-1 transition-transform"
+              disabled={loading || !url}
+            >
               {#if loading}
                 <span class="loading loading-spinner"></span>
                 Processing your clip...
               {:else}
                 <Scissors size={20} class="mr-2"/> Cut & Download
               {/if}
-              </button>
-            </div>
+            </button>
           </form>
         </div>
       </div>

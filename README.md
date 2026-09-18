@@ -37,9 +37,9 @@ services:
     container_name: recut_backend
     restart: unless-stopped
     # If using OpenWRT/Alpine hosts and experiencing yt-dlp DNS issues:
+    # Docker may fallback to 8.8.8.8 which OpenWRT might block. Set this to your router's LAN IP!
     dns:
-      - 8.8.8.8
-      - 1.1.1.1
+      - 10.0.0.1 # Change this to your OpenWRT LAN IP (e.g., 192.168.1.1)
     ports:
       - "8000:8000" # Format is HOST:CONTAINER. Change the first port (left side) to expose on a different host port
     volumes:
