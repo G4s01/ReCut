@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui" {
   themes:
-    cyberpunk --default,
-    synthwave;
+    light --default,
+    dim;
 }

@@ -10,13 +10,13 @@
 
 	onMount(() => {
 		const theme = localStorage.getItem('theme');
-		if (theme === 'synthwave') {
+		if (theme === 'dim') {
 			isDark = true;
 		}
 	});
 
 	$effect(() => {
-		const theme = isDark ? 'synthwave' : 'cyberpunk';
+		const theme = isDark ? 'dim' : 'light';
 		document.documentElement.setAttribute('data-theme', theme);
 		localStorage.setItem('theme', theme);
 	});
