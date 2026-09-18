@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Scissors, Clock, Link, Music, Video, Download, Play, AlertCircle, CheckCircle2 } from 'lucide-svelte';
+  import { Scissors, Clock, Link, Music, Video, Download, Play, CircleAlert, CheckCircle } from 'lucide-svelte';
   import favicon from '$lib/assets/favicon.svg';
   import recutLogo from '$lib/assets/ReCut.svg';
   import { env } from '$env/dynamic/public';
@@ -219,7 +219,7 @@
     <div class="w-full lg:w-1/2 space-y-6">
       <div class="text-center mb-8">
         <h1 class="mb-4 flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary">
-          <img src={recutLogo} alt="ReCut Logo" class="h-16 sm:h-24 w-auto drop-shadow-md" />
+          <!-- <img src={recutLogo} alt="ReCut Logo" class="h-16 sm:h-24 w-auto drop-shadow-md" /> -->
           <span class="text-3xl sm:text-5xl font-extrabold ml-2">Clip any video. Instantly.</span>
         </h1>
       </div>
@@ -230,7 +230,7 @@
             <!-- URL Input -->
             <div class="form-control w-full">
               <label class="label font-bold" for="url-input">
-                <span class="label-text flex items-center gap-2"><Link size={18}/> Video Link</span>
+                <span class="label-text flex items-center gap-2"><Link size={18}/> URL </span>
                 {#if infoLoading}
                   <span class="loading loading-spinner loading-xs text-primary"></span>
                 {/if}
@@ -256,7 +256,7 @@
             <div class="bg-base-200 p-6 rounded-2xl shadow-inner space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
               <div class="flex items-center gap-2 font-bold mb-2">
                 <Clock size={18} class="text-secondary" /> 
-                <span>Timeline ({videoInfo.duration ? Math.floor(videoInfo.duration / 60) + 'm ' + Math.floor(videoInfo.duration % 60) + 's' : 'Optional'})</span>
+                <span>TIMELINE ({videoInfo.duration ? Math.floor(videoInfo.duration / 60) + 'm ' + Math.floor(videoInfo.duration % 60) + 's' : 'Optional'})</span>
               </div>
               
               <!-- Slider -->
@@ -306,14 +306,14 @@
               </div>
               <div class="flex flex-col md:flex-row gap-6 justify-between items-center">
                 <!-- Start Time -->
-                {@render timeInput('Start At', 'start', undefined)}
+                {@render timeInput('INIZIO', 'start', undefined)}
 
                 <div class="hidden md:flex flex-col justify-center opacity-30 px-2 mt-6">
                   <Scissors size={24} />
                 </div>
 
                 <!-- End Time -->
-                {@render timeInput('End At', 'end', undefined)}
+                {@render timeInput('FINE', 'end', undefined)}
               </div>
             </div>
             {/if}
@@ -321,18 +321,18 @@
             <!-- Format Switch -->
             <div class="space-y-4">
               <div class="label font-bold">
-                <span class="label-text">Media Type</span>
+                <span class="label-text">FORMATO</span>
               </div>
               
               <div class="bg-base-200 p-2 rounded-xl flex flex-col md:flex-row gap-2 w-full">
                 <button type="button" class="btn flex-1 {formatType === 'video' ? 'btn-primary shadow-lg' : 'btn-ghost'}" onclick={() => setFormatType('video')}>
-                  <Video size={18} /> Audio & Video
+                  <Video size={18} /> DUALE
                 </button>
                 <button type="button" class="btn flex-1 {formatType === 'video_only' ? 'btn-accent shadow-lg' : 'btn-ghost'}" onclick={() => setFormatType('video_only')}>
-                  <Video size={18} /> Video Only
+                  <Video size={18} /> VIDEO
                 </button>
                 <button type="button" class="btn flex-1 {formatType === 'audio' ? 'btn-secondary shadow-lg' : 'btn-ghost'}" onclick={() => setFormatType('audio')}>
-                  <Music size={18} /> Audio Only
+                  <Music size={18} /> AUDIO
                 </button>
               </div>
 
@@ -353,7 +353,7 @@
                   <div class="animate-in fade-in slide-in-from-top-2 duration-300 flex flex-wrap gap-4">
                     <label class="cursor-pointer label justify-start gap-3">
                       <input type="radio" name="format-opt-audio" class="radio radio-secondary" value="m4a" bind:group={selectedFormat} />
-                      <span class="label-text font-medium">M4A (Default)</span>
+                      <span class="label-text font-medium">M4A</span>
                     </label>
                     <label class="cursor-pointer label justify-start gap-3">
                       <input type="radio" name="format-opt-audio" class="radio radio-secondary" value="opus" bind:group={selectedFormat} />
@@ -374,7 +374,7 @@
 
             {#if error}
               <div class="alert alert-error text-sm rounded-xl shadow-lg">
-                <AlertCircle size={18}/>
+                <CircleAlert size={18}/>
                 <span>{error}</span>
               </div>
             {/if}
@@ -387,9 +387,9 @@
               >
                 {#if loading}
                   <span class="loading loading-spinner"></span>
-                  Processing your clip...
+                  ATTENDI...
                 {:else}
-                  <Scissors size={20} class="mr-2"/> Cut & Download
+                  <Scissors size={20} class="mr-2"/> CONVERTI
                 {/if}
               </button>
             </div>
@@ -437,7 +437,7 @@
                   download={result.filename}
                   class="btn btn-lg w-full bg-base-100 text-success hover:bg-base-200 border-none shadow-xl text-xl group h-auto py-4"
                 >
-                  <Download size={28} class="group-hover:scale-110 transition-transform mr-2"/> Download File
+                  <Download size={28} class="group-hover:scale-110 transition-transform mr-2"/> SCARICA
                 </a>
               </div>
             </div>
@@ -449,7 +449,7 @@
           <div class="card-body p-0">
             <div class="bg-base-300 px-4 py-3 flex items-center gap-2 border-b border-base-200">
               <Play size={16} class="text-primary"/>
-              <span class="text-sm font-bold uppercase tracking-wider opacity-70">Source Preview</span>
+              <span class="text-sm font-bold uppercase tracking-wider opacity-70">ANTEPRIMA</span>
             </div>
             <div class="aspect-video w-full bg-black">
               <iframe
@@ -466,10 +466,10 @@
         </div>
       {:else}
         <!-- Desktop Empty Placeholder -->
-        <div class="hidden lg:flex flex-col items-center justify-center h-[calc(100%-1.5rem)] min-h-[400px] border-4 border-dashed border-base-300 rounded-3xl opacity-60 bg-base-100/30">
+        <div class="hidden lg:flex flex-col items-center justify-center h-[calc(100%-1.5rem)] min-h-100 border-4 border-dashed border-base-300 rounded-3xl opacity-60 bg-base-100/30">
           <Video size={64} class="mb-4 opacity-50 text-base-content" />
-          <p class="font-black text-2xl uppercase tracking-widest text-base-content/70">Preview Area</p>
-          <p class="text-base font-medium opacity-50 mt-2">Paste a link to get started</p>
+          <p class="font-black text-2xl uppercase tracking-widest text-base-content/70">PAREA ANTEPRIMA</p>
+          <p class="text-base font-medium opacity-50 mt-2">INCOLLA UN URL PER INIZIARE</p>
         </div>
       {/if}
     </div>
