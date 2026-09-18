@@ -7,9 +7,9 @@
 @plugin "daisyui/theme" {
   name: "recut-dark";
   color-scheme: dark;
-  --color-base-100: #000000;
-  --color-base-200: #0a0a0a;
-  --color-base-300: #141414;
+  --color-base-100: #0a0a0a;
+  --color-base-200: #000000;
+  --color-base-300: #1a1a1a;
   --color-base-content: #ffffff;
   --color-primary: #ff00d3;
   --color-secondary: #00d3ff;

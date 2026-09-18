@@ -217,7 +217,7 @@
     
     <!-- Title Area (Centered Above Columns) -->
     <div class="w-full mb-6">
-      <div class="card bg-base-100 shadow-2xl border border-base-200 p-4 sm:p-6 lg:px-8 flex flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 w-full rounded-2xl z-10 relative">
+      <div class="card bg-base-100 shadow-2xl border border-base-300 p-4 sm:p-6 lg:px-8 flex flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 w-full rounded-2xl z-10 relative">
         <div class="card bg-white p-2 rounded-xl shadow-sm shrink-0">
           <img src={recutLogo} alt="ReCut Logo" class="h-8 sm:h-12 w-auto drop-shadow-sm" />
         </div>
@@ -232,7 +232,7 @@
       
       <!-- Left Column (Form) -->
       <div class="w-full lg:w-1/2">
-        <div class="card bg-base-100 shadow-2xl border border-base-200 rounded-2xl">
+        <div class="card bg-base-100 shadow-2xl border border-base-300 rounded-2xl">
         <div class="card-body p-6 md:p-8">
           <form onsubmit={handleSubmit} class="space-y-8">
             <!-- URL Input -->
@@ -453,9 +453,9 @@
           </div>
         </div>
       {:else if youtubeId}
-        <div class="card bg-base-100 shadow-xl border border-base-200 overflow-hidden">
+        <div class="card bg-base-100 shadow-xl border border-base-300 overflow-hidden">
           <div class="card-body p-0">
-            <div class="bg-base-300 px-4 py-3 flex items-center gap-2 border-b border-base-200">
+            <div class="bg-base-300 px-4 py-3 flex items-center gap-2 border-b border-base-300">
               <Play size={16} class="text-primary"/>
               <span class="text-sm font-bold uppercase tracking-wider opacity-70">ANTEPRIMA</span>
             </div>
