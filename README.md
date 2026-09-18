@@ -36,13 +36,17 @@ services:
     image: ghcr.io/g4s01/recut/backend:latest
     container_name: recut_backend
     restart: unless-stopped
+    # If using OpenWRT/Alpine hosts and experiencing yt-dlp DNS issues:
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     ports:
-      - "8000:8000" # Change the first port to expose on a different host port
+      - "8000:8000" # Format is HOST:CONTAINER. Change the first port (left side) to expose on a different host port
     volumes:
       # Map a specific local directory for the extracted clips
       - ./my-clips:/app/downloads
       # Map a specific local directory for internal container data (e.g., yt-dlp cache)
-      - ./my-data:/app/data
+      - ./backend-data:/app/data
     environment:
       - HOST=0.0.0.0
       - PORT=8000
@@ -54,7 +58,7 @@ services:
     container_name: recut_frontend
     restart: unless-stopped
     ports:
-      - "3000:3000" # Change the first port to expose on a different host port
+      - "3000:3000" # Format is HOST:CONTAINER. Change the first port (left side) to expose on a different host port
     environment:
       # Point the frontend to the backend's external URL (or use default if not set)
       - PUBLIC_API_URL=${API_BASE_URL:-http://localhost:8000}

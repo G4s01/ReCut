@@ -113,9 +113,15 @@ def process_video(req: ClipRequest) -> str:
     elif req.format == 'opus':
         opts['format'] = 'bestaudio[ext=opus]/bestaudio/best'
     elif req.format == 'webm':
-        opts['format'] = 'bestvideo[ext=webm]+bestaudio[ext=webm]/best[ext=webm]/best'
+        if req.media_format == 'video_only':
+            opts['format'] = 'bestvideo[ext=webm]/bestvideo/best'
+        else:
+            opts['format'] = 'bestvideo[ext=webm]+bestaudio[ext=webm]/best[ext=webm]/best'
     else:
-        opts['format'] = 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
+        if req.media_format == 'video_only':
+            opts['format'] = 'bestvideo[ext=mp4]/bestvideo/best'
+        else:
+            opts['format'] = 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
     
     if req.start_time is not None or req.end_time is not None:
         start = req.start_time if req.start_time is not None else 0

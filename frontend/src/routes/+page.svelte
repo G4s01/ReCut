@@ -12,11 +12,11 @@
   let endMinutes = $state<number | null>(null);
   let endSeconds = $state<number | null>(null);
   
-  let formatType = $state<'video' | 'audio'>('video');
+  let formatType = $state<'video' | 'video_only' | 'audio'>('video');
   let selectedFormat = $state<'mp4' | 'webm' | 'm4a' | 'opus' | 'mp3' | 'wav'>('mp4');
 
   $effect(() => {
-    if (formatType === 'video' && !['mp4', 'webm'].includes(selectedFormat)) selectedFormat = 'mp4';
+    if ((formatType === 'video' || formatType === 'video_only') && !['mp4', 'webm'].includes(selectedFormat)) selectedFormat = 'mp4';
     else if (formatType === 'audio' && !['m4a', 'opus', 'mp3', 'wav'].includes(selectedFormat)) selectedFormat = 'm4a';
   });
 
@@ -315,18 +315,21 @@
                 <span class="label-text">Media Type</span>
               </label>
               
-              <div class="bg-base-200 p-2 rounded-xl flex gap-2 w-full max-w-sm">
-                <button type="button" class="btn flex-1 {formatType === 'video' ? 'btn-primary shadow-lg' : 'btn-ghost'}" onclick={() => formatType = 'video'}>
+              <div class="bg-base-200 p-2 rounded-xl flex flex-col md:flex-row gap-2 w-full">
+                <button type="button" class="btn flex-1 {formatType === 'video' ? 'btn-primary shadow-lg aura-rainbow' : 'btn-ghost'}" onclick={() => formatType = 'video'}>
                   <Video size={18} /> Audio & Video
                 </button>
-                <button type="button" class="btn flex-1 {formatType === 'audio' ? 'btn-secondary shadow-lg' : 'btn-ghost'}" onclick={() => formatType = 'audio'}>
+                <button type="button" class="btn flex-1 {formatType === 'video_only' ? 'btn-accent shadow-lg aura-rainbow' : 'btn-ghost'}" onclick={() => formatType = 'video_only'}>
+                  <Video size={18} /> Video Only
+                </button>
+                <button type="button" class="btn flex-1 {formatType === 'audio' ? 'btn-secondary shadow-lg aura-rainbow' : 'btn-ghost'}" onclick={() => formatType = 'audio'}>
                   <Music size={18} /> Audio Only
                 </button>
               </div>
 
               <!-- Format Reveal -->
               <div class="mt-4 px-2">
-                {#if formatType === 'video'}
+                {#if formatType === 'video' || formatType === 'video_only'}
                   <div class="animate-in fade-in slide-in-from-top-2 duration-300 flex flex-wrap gap-4">
                     <label class="cursor-pointer label justify-start gap-3">
                       <input type="radio" name="format-opt-video" class="radio radio-primary" value="mp4" bind:group={selectedFormat} />
@@ -369,7 +372,7 @@
 
             <button
               type="submit"
-              class="btn btn-lg btn-block {formatType === 'video' ? 'btn-primary' : 'btn-secondary'} rounded-2xl text-lg font-bold shadow-xl hover:-translate-y-1 transition-transform"
+              class="btn btn-lg btn-block {formatType === 'video' ? 'btn-primary' : 'btn-secondary'} rounded-2xl text-lg font-bold shadow-xl hover:-translate-y-1 transition-transform aura-rainbow"
               disabled={loading || !url}
             >
               {#if loading}
@@ -430,7 +433,7 @@
               <a
                 href="{apiUrl}{result.file_url}"
                 download={result.filename}
-                class="btn btn-lg w-full bg-base-100 text-success hover:bg-base-200 border-none shadow-xl text-xl group h-auto py-4"
+                class="btn btn-lg w-full bg-base-100 text-success hover:bg-base-200 border-none shadow-xl text-xl group h-auto py-4 aura-rainbow"
               >
                 <Download size={28} class="group-hover:scale-110 transition-transform mr-2"/> Download File
               </a>
