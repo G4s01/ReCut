@@ -1,6 +1,7 @@
 <script lang="ts">
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
+	import recutLogo from '$lib/assets/ReCut.svg';
 	import { Sun, Moon } from 'lucide-svelte';
 	import { onMount } from 'svelte';
 
@@ -27,9 +28,8 @@
 <div class="min-h-screen flex flex-col bg-base-200">
 	<header class="navbar bg-base-100 shadow-sm px-4 lg:px-8 flex justify-between items-center">
 		<div class="flex-1">
-			<a href="/" class="text-2xl font-black text-primary tracking-tighter flex items-center gap-2">
-				<img src={favicon} alt="ReCut Logo" class="w-8 h-8" />
-				<span class="bg-primary text-primary-content px-2 py-1 rounded-lg">Re</span>Cut
+			<a href="/" class="flex items-center">
+				<img src={recutLogo} alt="ReCut Logo" class="h-8 md:h-10 w-auto" />
 			</a>
 		</div>
 		<div class="flex-none">

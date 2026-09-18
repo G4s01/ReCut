@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Scissors, Clock, Link, Music, Video, Download, Play, AlertCircle, CheckCircle2 } from 'lucide-svelte';
   import favicon from '$lib/assets/favicon.svg';
+  import recutLogo from '$lib/assets/ReCut.svg';
   import { env } from '$env/dynamic/public';
 
   let url = $state('');
@@ -217,12 +218,9 @@
     <!-- Left Column (Form) -->
     <div class="w-full lg:w-1/2 space-y-6">
       <div class="text-center mb-8">
-        <h1 class="text-3xl sm:text-5xl font-extrabold mb-4 flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary">
-          <span class="text-primary font-black tracking-tighter flex items-center gap-2 drop-shadow-sm">
-            <img src={favicon} alt="ReCut Logo" class="w-10 h-10 sm:w-14 sm:h-14" />
-            <span class="bg-primary text-primary-content px-2 py-1 rounded-lg">Re</span>Cut
-          </span>
-          <span>Clip any video. Instantly.</span>
+        <h1 class="mb-4 flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary">
+          <img src={recutLogo} alt="ReCut Logo" class="h-16 sm:h-24 w-auto drop-shadow-md" />
+          <span class="text-3xl sm:text-5xl font-extrabold ml-2">Clip any video. Instantly.</span>
         </h1>
       </div>
 
