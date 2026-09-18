@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - "v*.*.*"
 
 env:
   REGISTRY: ghcr.io
@@ -33,6 +35,8 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ github.repository }}/backend
           tags: |
             type=ref,event=branch
+            type=ref,event=tag
+            type=semver,pattern={{version}}
             type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push Backend
@@ -50,6 +54,8 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ github.repository }}/frontend
           tags: |
             type=ref,event=branch
+            type=ref,event=tag
+            type=semver,pattern={{version}}
             type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push Frontend
