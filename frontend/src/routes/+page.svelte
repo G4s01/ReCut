@@ -15,10 +15,11 @@
   let formatType = $state<'video' | 'video_only' | 'audio'>('video');
   let selectedFormat = $state<'mp4' | 'webm' | 'm4a' | 'opus' | 'mp3' | 'wav'>('mp4');
 
-  $effect(() => {
-    if ((formatType === 'video' || formatType === 'video_only') && !['mp4', 'webm'].includes(selectedFormat)) selectedFormat = 'mp4';
-    else if (formatType === 'audio' && !['m4a', 'opus', 'mp3', 'wav'].includes(selectedFormat)) selectedFormat = 'm4a';
-  });
+  function setFormatType(type: 'video' | 'video_only' | 'audio') {
+    formatType = type;
+    if ((type === 'video' || type === 'video_only') && !['mp4', 'webm'].includes(selectedFormat)) selectedFormat = 'mp4';
+    else if (type === 'audio' && !['m4a', 'opus', 'mp3', 'wav'].includes(selectedFormat)) selectedFormat = 'm4a';
+  }
 
   let loading = $state(false);
   let error = $state('');
@@ -27,7 +28,7 @@
   let videoInfo = $state<{duration: number | null, title: string | null} | null>(null);
   let infoLoading = $state(false);
   
-  let showHours = $derived(videoInfo?.duration ? videoInfo.duration >= 3600 : false);
+  let showHours = $derived(!videoInfo?.duration || videoInfo.duration >= 3600);
 
   let startSecs = $state(0);
   let endSecs = $state(0);
@@ -41,9 +42,13 @@
     return match ? match[1] : null;
   });
 
-  $effect(() => {
+  let debounceTimeout: ReturnType<typeof setTimeout> | null = null;
+  
+  function onUrlInput() {
+    if (debounceTimeout) clearTimeout(debounceTimeout);
+    
     if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
-      const fetchInfo = async () => {
+      debounceTimeout = setTimeout(async () => {
         infoLoading = true;
         error = '';
         try {
@@ -71,14 +76,11 @@
         } finally {
           infoLoading = false;
         }
-      };
-      
-      const timeoutId = setTimeout(fetchInfo, 500);
-      return () => clearTimeout(timeoutId);
+      }, 500);
     } else {
       videoInfo = null;
     }
-  });
+  }
 
   function updateFromStartSecs() {
     activeThumb = 'start';
@@ -170,6 +172,44 @@
   }
 </script>
 
+{#snippet timeInput(label, type, updateFn)}
+  <div class="flex-1 w-full space-y-2">
+    <span class="text-xs uppercase font-bold opacity-60 ml-1">{label}</span>
+    <div class="flex items-center gap-2">
+      <div class="join w-full shadow-sm">
+        {#if showHours}
+        <input type="number" min="0" 
+          value={type === 'start' ? startHours : endHours} 
+          oninput={(e) => { 
+            const val = e.currentTarget.value ? parseInt(e.currentTarget.value) : null;
+            if (type === 'start') startHours = val; else endHours = val;
+            if (updateFn) updateFn();
+          }} 
+          placeholder="hh" class="input input-bordered join-item w-full text-center text-lg font-mono px-1" />
+        <span class="btn btn-disabled join-item border-y border-base-300 bg-base-100 px-2">:</span>
+        {/if}
+        <input type="number" min="0" max="59" 
+          value={type === 'start' ? startMinutes : endMinutes} 
+          oninput={(e) => { 
+            const val = e.currentTarget.value ? parseInt(e.currentTarget.value) : null;
+            if (type === 'start') startMinutes = val; else endMinutes = val;
+            if (updateFn) updateFn();
+          }} 
+          placeholder="mm" class="input input-bordered join-item w-full text-center text-lg font-mono px-1" />
+        <span class="btn btn-disabled join-item border-y border-base-300 bg-base-100 px-2">:</span>
+        <input type="number" min="0" max="59" 
+          value={type === 'start' ? startSeconds : endSeconds} 
+          oninput={(e) => { 
+            const val = e.currentTarget.value ? parseInt(e.currentTarget.value) : null;
+            if (type === 'start') startSeconds = val; else endSeconds = val;
+            if (updateFn) updateFn();
+          }} 
+          placeholder="ss" class="input input-bordered join-item w-full text-center text-lg font-mono px-1" />
+      </div>
+    </div>
+  </div>
+{/snippet}
+
 <div class="hero min-h-[calc(100vh-5rem)]">
   <div class="hero-content flex-col gap-10 w-full max-w-3xl items-center">
     
@@ -196,6 +236,7 @@
                 id="url-input"
                 type="url"
                 bind:value={url}
+                oninput={onUrlInput}
                 placeholder="https://www.youtube.com/watch?v=..."
                 class="input input-lg input-bordered input-primary w-full shadow-inner"
                 required
@@ -222,59 +263,33 @@
                      style="left: {(startSecs / videoInfo.duration) * 100}%; width: {((endSecs - startSecs) / videoInfo.duration) * 100}%;"></div>
                 
                 <input type="range" min="0" max={videoInfo.duration} bind:value={startSecs} oninput={updateFromStartSecs} 
-                       class="absolute w-full h-2 appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:appearance-none [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:bg-primary [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:rounded-full {activeThumb === 'start' ? 'z-20' : 'z-10'}" />
+                       class="custom-range-slider thumb-primary {activeThumb === 'start' ? 'z-20' : 'z-10'}" />
                        
                 <input type="range" min="0" max={videoInfo.duration} bind:value={endSecs} oninput={updateFromEndSecs} 
-                       class="absolute w-full h-2 appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:bg-secondary [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:appearance-none [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:bg-secondary [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:rounded-full {activeThumb === 'end' ? 'z-20' : 'z-10'}" />
+                       class="custom-range-slider thumb-secondary {activeThumb === 'end' ? 'z-20' : 'z-10'}" />
               </div>
               
               <div class="flex flex-col md:flex-row gap-6 justify-between items-center">
                 <!-- Start Time -->
-                <div class="flex-1 w-full space-y-2">
-                  <span class="text-xs uppercase font-bold opacity-60 ml-1">Start At</span>
-                  <div class="flex items-center gap-2">
-                    <div class="join w-full shadow-sm">
-                      {#if showHours}
-                      <input type="number" min="0" bind:value={startHours} oninput={updateFromStartInputs} placeholder="hh" class="input input-bordered join-item w-full text-center text-lg font-mono px-1" />
-                      <span class="btn btn-disabled join-item border-y border-base-300 bg-base-100 px-2">:</span>
-                      {/if}
-                      <input type="number" min="0" max="59" bind:value={startMinutes} oninput={updateFromStartInputs} placeholder="mm" class="input input-bordered join-item w-full text-center text-lg font-mono px-1" />
-                      <span class="btn btn-disabled join-item border-y border-base-300 bg-base-100 px-2">:</span>
-                      <input type="number" min="0" max="59" bind:value={startSeconds} oninput={updateFromStartInputs} placeholder="ss" class="input input-bordered join-item w-full text-center text-lg font-mono px-1" />
-                    </div>
-                  </div>
-                </div>
+                {@render timeInput('Start At', 'start', updateFromStartInputs)}
 
                 <div class="hidden md:flex flex-col justify-center opacity-30 px-2 mt-6">
                   <Scissors size={24} />
                 </div>
 
                 <!-- End Time -->
-                <div class="flex-1 w-full space-y-2">
-                  <span class="text-xs uppercase font-bold opacity-60 ml-1">End At</span>
-                  <div class="flex items-center gap-2">
-                    <div class="join w-full shadow-sm">
-                      {#if showHours}
-                      <input type="number" min="0" bind:value={endHours} oninput={updateFromEndInputs} placeholder="hh" class="input input-bordered join-item w-full text-center text-lg font-mono px-1" />
-                      <span class="btn btn-disabled join-item border-y border-base-300 bg-base-100 px-2">:</span>
-                      {/if}
-                      <input type="number" min="0" max="59" bind:value={endMinutes} oninput={updateFromEndInputs} placeholder="mm" class="input input-bordered join-item w-full text-center text-lg font-mono px-1" />
-                      <span class="btn btn-disabled join-item border-y border-base-300 bg-base-100 px-2">:</span>
-                      <input type="number" min="0" max="59" bind:value={endSeconds} oninput={updateFromEndInputs} placeholder="ss" class="input input-bordered join-item w-full text-center text-lg font-mono px-1" />
-                    </div>
-                  </div>
-                </div>
+                {@render timeInput('End At', 'end', updateFromEndInputs)}
               </div>
             </div>
             {/if}
             {#if infoLoading}
             <!-- Skeleton Loader for Timeline -->
-            <div class="bg-base-200 p-6 rounded-2xl shadow-inner space-y-4 animate-pulse">
-              <div class="h-6 bg-base-300 rounded w-1/3 mb-4"></div>
-              <div class="h-2 bg-base-300 rounded-full w-full my-4"></div>
+            <div class="bg-base-200 p-6 rounded-2xl shadow-inner space-y-4">
+              <div class="skeleton h-6 w-1/3 mb-4"></div>
+              <div class="skeleton h-2 w-full my-4"></div>
               <div class="flex justify-between gap-6">
-                <div class="h-12 bg-base-300 rounded w-full"></div>
-                <div class="h-12 bg-base-300 rounded w-full"></div>
+                <div class="skeleton h-12 w-full"></div>
+                <div class="skeleton h-12 w-full"></div>
               </div>
             </div>
             {/if}
@@ -288,36 +303,14 @@
               </div>
               <div class="flex flex-col md:flex-row gap-6 justify-between items-center">
                 <!-- Start Time -->
-                <div class="flex-1 w-full space-y-2">
-                  <span class="text-xs uppercase font-bold opacity-60 ml-1">Start At</span>
-                  <div class="flex items-center gap-2">
-                    <div class="join w-full shadow-sm">
-                      <input type="number" min="0" bind:value={startHours} placeholder="hh" class="input input-bordered join-item w-full text-center text-lg font-mono px-1" />
-                      <span class="btn btn-disabled join-item border-y border-base-300 bg-base-100 px-2">:</span>
-                      <input type="number" min="0" max="59" bind:value={startMinutes} placeholder="mm" class="input input-bordered join-item w-full text-center text-lg font-mono px-1" />
-                      <span class="btn btn-disabled join-item border-y border-base-300 bg-base-100 px-2">:</span>
-                      <input type="number" min="0" max="59" bind:value={startSeconds} placeholder="ss" class="input input-bordered join-item w-full text-center text-lg font-mono px-1" />
-                    </div>
-                  </div>
-                </div>
+                {@render timeInput('Start At', 'start', undefined)}
 
                 <div class="hidden md:flex flex-col justify-center opacity-30 px-2 mt-6">
                   <Scissors size={24} />
                 </div>
 
                 <!-- End Time -->
-                <div class="flex-1 w-full space-y-2">
-                  <span class="text-xs uppercase font-bold opacity-60 ml-1">End At</span>
-                  <div class="flex items-center gap-2">
-                    <div class="join w-full shadow-sm">
-                      <input type="number" min="0" bind:value={endHours} placeholder="hh" class="input input-bordered join-item w-full text-center text-lg font-mono px-1" />
-                      <span class="btn btn-disabled join-item border-y border-base-300 bg-base-100 px-2">:</span>
-                      <input type="number" min="0" max="59" bind:value={endMinutes} placeholder="mm" class="input input-bordered join-item w-full text-center text-lg font-mono px-1" />
-                      <span class="btn btn-disabled join-item border-y border-base-300 bg-base-100 px-2">:</span>
-                      <input type="number" min="0" max="59" bind:value={endSeconds} placeholder="ss" class="input input-bordered join-item w-full text-center text-lg font-mono px-1" />
-                    </div>
-                  </div>
-                </div>
+                {@render timeInput('End At', 'end', undefined)}
               </div>
             </div>
             {/if}
@@ -329,13 +322,13 @@
               </label>
               
               <div class="bg-base-200 p-2 rounded-xl flex flex-col md:flex-row gap-2 w-full">
-                <button type="button" class="btn flex-1 {formatType === 'video' ? 'btn-primary shadow-lg' : 'btn-ghost'}" onclick={() => formatType = 'video'}>
+                <button type="button" class="btn flex-1 {formatType === 'video' ? 'btn-primary shadow-lg' : 'btn-ghost'}" onclick={() => setFormatType('video')}>
                   <Video size={18} /> Audio & Video
                 </button>
-                <button type="button" class="btn flex-1 {formatType === 'video_only' ? 'btn-accent shadow-lg' : 'btn-ghost'}" onclick={() => formatType = 'video_only'}>
+                <button type="button" class="btn flex-1 {formatType === 'video_only' ? 'btn-accent shadow-lg' : 'btn-ghost'}" onclick={() => setFormatType('video_only')}>
                   <Video size={18} /> Video Only
                 </button>
-                <button type="button" class="btn flex-1 {formatType === 'audio' ? 'btn-secondary shadow-lg' : 'btn-ghost'}" onclick={() => formatType = 'audio'}>
+                <button type="button" class="btn flex-1 {formatType === 'audio' ? 'btn-secondary shadow-lg' : 'btn-ghost'}" onclick={() => setFormatType('audio')}>
                   <Music size={18} /> Audio Only
                 </button>
               </div>
@@ -460,3 +453,19 @@
     
   </div>
 </div>
+
+<style>
+  .custom-range-slider {
+    @apply absolute w-full h-2 appearance-none bg-transparent pointer-events-none;
+  }
+  .custom-range-slider::-webkit-slider-thumb {
+    @apply pointer-events-auto w-5 h-5 rounded-full appearance-none;
+  }
+  .custom-range-slider::-moz-range-thumb {
+    @apply pointer-events-auto w-5 h-5 border-none rounded-full;
+  }
+  .thumb-primary::-webkit-slider-thumb { @apply bg-primary; }
+  .thumb-primary::-moz-range-thumb { @apply bg-primary; }
+  .thumb-secondary::-webkit-slider-thumb { @apply bg-secondary; }
+  .thumb-secondary::-moz-range-thumb { @apply bg-secondary; }
+</style>

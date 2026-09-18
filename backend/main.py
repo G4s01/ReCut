@@ -13,17 +13,19 @@ import yt_dlp
 DOWNLOADS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "downloads"))
 os.makedirs(DOWNLOADS_DIR, exist_ok=True)
 
+def _sync_cleanup():
+    now = time.time()
+    for filename in os.listdir(DOWNLOADS_DIR):
+        filepath = os.path.join(DOWNLOADS_DIR, filename)
+        if os.path.isfile(filepath):
+            if os.stat(filepath).st_mtime < now - 7200:
+                os.remove(filepath)
+
 async def cleanup_old_files():
     """Background task to delete files older than 2 hours."""
     while True:
         try:
-            now = time.time()
-            for filename in os.listdir(DOWNLOADS_DIR):
-                filepath = os.path.join(DOWNLOADS_DIR, filename)
-                if os.path.isfile(filepath):
-                    # 7200 seconds = 2 hours
-                    if os.stat(filepath).st_mtime < now - 7200:
-                        os.remove(filepath)
+            await asyncio.to_thread(_sync_cleanup)
         except Exception as e:
             print(f"Cleanup error: {e}")
         await asyncio.sleep(3600)  # Run every hour
@@ -146,9 +148,13 @@ def process_video(req: ClipRequest) -> str:
                 
             if req.format in ['mp3', 'wav']:
                 base, _ = os.path.splitext(filepath)
-                filepath = f"{base}.{req.format}"
+                possible_filepath = f"{base}.{req.format}"
+                if os.path.exists(possible_filepath):
+                    filepath = possible_filepath
                 
             return os.path.basename(filepath)
+        except ValueError:
+            raise
         except Exception as e:
             import traceback
             traceback.print_exc()
@@ -175,5 +181,7 @@ async def create_clip(req: ClipRequest) -> ClipResponse:
             file_url=f"/api/download/{filename}",
             filename=filename
         )
-    except Exception as e:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
