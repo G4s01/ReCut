@@ -1,10 +1,25 @@
 @import "tailwindcss";
+
 @plugin "daisyui" {
-  themes:
-    light --default,
-    dim;
+  themes: light --default;
 }
 
+@plugin "daisyui/theme" {
+  name: "recut-dark";
+  color-scheme: dark;
+  --color-base-100: #000000;
+  --color-base-200: #0a0a0a;
+  --color-base-300: #141414;
+  --color-base-content: #ffffff;
+  --color-primary: #ff00d3;
+  --color-secondary: #00d3ff;
+  --color-accent: #00ff99;
+  --color-neutral: #111111;
+  --color-info: #00d3ff;
+  --color-success: #00ff99;
+  --color-warning: #ffaa00;
+  --color-error: #ff3333;
+}
 
 @layer components {
   .custom-range-slider {
@@ -16,8 +31,16 @@
   .custom-range-slider::-moz-range-thumb {
     @apply pointer-events-auto w-5 h-5 border-none rounded-full;
   }
-  .thumb-primary::-webkit-slider-thumb { @apply bg-primary; }
-  .thumb-primary::-moz-range-thumb { @apply bg-primary; }
-  .thumb-secondary::-webkit-slider-thumb { @apply bg-secondary; }
-  .thumb-secondary::-moz-range-thumb { @apply bg-secondary; }
+  .thumb-primary::-webkit-slider-thumb {
+    @apply bg-primary;
+  }
+  .thumb-primary::-moz-range-thumb {
+    @apply bg-primary;
+  }
+  .thumb-secondary::-webkit-slider-thumb {
+    @apply bg-secondary;
+  }
+  .thumb-secondary::-moz-range-thumb {
+    @apply bg-secondary;
+  }
 }

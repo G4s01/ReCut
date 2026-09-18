@@ -216,20 +216,23 @@
   <div class="w-full max-w-6xl">
     
     <!-- Title Area (Centered Above Columns) -->
-    <div class="w-full mb-10 flex justify-center">
-      <div class="card bg-base-100 shadow-md border border-base-200 py-3 px-6 sm:py-4 sm:px-8 flex flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 rounded-3xl">
-        <img src={recutLogo} alt="ReCut Logo" class="h-8 sm:h-12 w-auto drop-shadow-sm" />
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary whitespace-nowrap">
+    <div class="w-full mb-6">
+      <div class="card bg-base-100 shadow-2xl border border-base-200 p-4 sm:p-6 lg:px-8 flex flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 w-full rounded-2xl z-10 relative">
+        <div class="card bg-white p-2 rounded-xl shadow-sm shrink-0">
+          <img src={recutLogo} alt="ReCut Logo" class="h-8 sm:h-12 w-auto drop-shadow-sm" />
+        </div>
+        <h1 class="text-2xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary whitespace-nowrap">
           Clip any video. Instantly.
         </h1>
       </div>
     </div>
 
-    <div class="flex flex-col lg:flex-row gap-10 w-full items-start justify-center">
+    <!-- Columns Area -->
+    <div class="flex flex-col lg:flex-row gap-6 lg:gap-10 w-full items-start justify-center">
       
       <!-- Left Column (Form) -->
       <div class="w-full lg:w-1/2">
-        <div class="card bg-base-100 shadow-2xl border border-base-200">
+        <div class="card bg-base-100 shadow-2xl border border-base-200 rounded-2xl">
         <div class="card-body p-6 md:p-8">
           <form onsubmit={handleSubmit} class="space-y-8">
             <!-- URL Input -->

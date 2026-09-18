@@ -11,13 +11,13 @@
 
 	onMount(() => {
 		const theme = localStorage.getItem('theme');
-		if (theme === 'dim') {
+		if (theme === 'recut-dark') {
 			isDark = true;
 		}
 	});
 
 	$effect(() => {
-		const theme = isDark ? 'dim' : 'light';
+		const theme = isDark ? 'recut-dark' : 'light';
 		document.documentElement.setAttribute('data-theme', theme);
 		localStorage.setItem('theme', theme);
 	});
@@ -28,8 +28,8 @@
 <div class="min-h-screen flex flex-col bg-base-200">
 	<header class="navbar bg-base-100 shadow-sm px-4 lg:px-8 flex justify-between items-center">
 		<div class="flex-1">
-			<a href="/" class="flex items-center">
-				<div class="card bg-base-100 p-1 sm:p-2 shadow-sm border border-base-200 shrink-0">
+			<a href="/" data-sveltekit-reload class="flex items-center">
+				<div class="card bg-white p-1 sm:p-2 shadow-sm border border-base-200 shrink-0">
 					<img src={recutLogo} alt="ReCut Logo" class="h-6 md:h-8 w-auto" />
 				</div>
 			</a>
