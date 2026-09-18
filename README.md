@@ -20,12 +20,13 @@ ReCut provides a lightning-fast way to trim, crop, and download video segments. 
 ## Architecture
 
 ReCut is composed of two loosely coupled services:
+
 1. **Frontend (Web UI)**: A SvelteKit application handling the user interface and API consumption.
 2. **Backend (API)**: A Python FastAPI service handling the heavy lifting—extracting info natively with `yt-dlp` and slicing videos with `ffmpeg`.
 
 ## Getting Started
 
-The recommended way to deploy ReCut is via Docker Compose. Below is a complete, well-commented configuration that sets up both the frontend and backend. 
+The recommended way to deploy ReCut is via Docker Compose. Below is a complete, well-commented configuration that sets up both the frontend and backend.
 
 This configuration uses a custom **bridge network** for secure inter-container communication and specifically maps local host directories for both your downloaded clips and internal container data to guarantee persistence.
 
@@ -34,12 +35,11 @@ version: "3.8"
 
 services:
   backend:
-    build: 
-      context: ./backend
+    image: ghcr.io/g4s01/recut/backend:main
     container_name: recut_backend
     restart: unless-stopped
     ports:
-      - "8000:8000" # Expose FastAPI backend on host port 8000
+      - "${BACKEND_PORT:-8000}:8000" # Customizable via .env file
     volumes:
       # Map a specific local directory for the extracted clips
       - ./my-clips:/app/downloads
@@ -52,15 +52,14 @@ services:
       - recut_bridge
 
   frontend:
-    build: 
-      context: ./frontend
+    image: ghcr.io/g4s01/recut/frontend:main
     container_name: recut_frontend
     restart: unless-stopped
     ports:
-      - "3000:3000" # Expose Svelte frontend on host port 3000
+      - "${FRONTEND_PORT:-3000}:3000" # Customizable via .env file
     environment:
-      # Point the frontend to the backend exposed on the host
-      - VITE_API_BASE_URL=http://localhost:8000
+      # Point the frontend to the backend's external URL (or use default if not set)
+      - VITE_API_BASE_URL=${API_BASE_URL:-http://localhost:8000}
     depends_on:
       - backend
     networks:
@@ -74,16 +73,25 @@ networks:
 
 ### Running the application
 
-1. Save the configuration above as `docker-compose.yml` in the project root.
-2. Run the following command to build and start the containers in the background:
+1. Save the configuration above as `docker-compose.yml` in a directory of your choice.
+2. (Optional) Create a `.env` file in the same directory if you need to customize ports or external URLs:
+
+```env
+BACKEND_PORT=8000
+FRONTEND_PORT=3000
+API_BASE_URL=https://api.yourdomain.com
+```
+
+3. Run the following command to pull the images and start the containers in the background:
 
 ```bash
-docker compose up -d --build
+docker compose up -d
 ```
 
 Once started:
-- Access the **Web UI** at `http://localhost:3000`
-- Access the **API Documentation** (Swagger UI) at `http://localhost:8000/docs`
+
+- Access the **Web UI** at `http://localhost:3000` (or your custom port/domain).
+- Access the **API Documentation** (Swagger UI) at `http://localhost:8000/docs`.
 
 > [!NOTE]
 > All processed clips will be safely stored in the `./my-clips` directory on your host machine. The backend's built-in garbage collector automatically removes media older than 2-3 hours to prevent storage bloat.
@@ -93,7 +101,9 @@ Once started:
 If you prefer to run the components directly on your host machine for development:
 
 ### Backend
+
 Requires Python 3.10+, `ffmpeg`, and `yt-dlp` available in your system `PATH`.
+
 ```bash
 cd backend
 python -m venv venv
@@ -103,7 +113,9 @@ uvicorn main:app --reload
 ```
 
 ### Frontend
+
 Requires Node.js 18+.
+
 ```bash
 cd frontend
 npm install
