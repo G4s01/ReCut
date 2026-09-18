@@ -57,7 +57,7 @@ services:
       - "3000:3000" # Change the first port to expose on a different host port
     environment:
       # Point the frontend to the backend's external URL (or use default if not set)
-      - VITE_API_BASE_URL=${API_BASE_URL:-http://localhost:8000}
+      - PUBLIC_API_URL=${API_BASE_URL:-http://localhost:8000}
     depends_on:
       - backend
     networks:

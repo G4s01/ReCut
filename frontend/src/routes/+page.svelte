@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Scissors, Clock, Link, Music, Video, Download, Play, AlertCircle, CheckCircle2 } from 'lucide-svelte';
+  import { env } from '$env/dynamic/public';
 
   let url = $state('');
   
@@ -32,7 +33,7 @@
   let endSecs = $state(0);
   let activeThumb = $state<'start'|'end'>('end');
 
-  let apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+  let apiUrl = env.PUBLIC_API_URL || 'http://localhost:8000';
 
   let youtubeId = $derived.by(() => {
     if (!url) return null;
