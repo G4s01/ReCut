@@ -25,7 +25,6 @@ __pycache__/
 build/
 develop-eggs/
 dist/
-downloads/
 eggs/
 .eggs/
 lib/
@@ -43,4 +42,5 @@ MANIFEST
 # ReCut specific
 downloads/
 media/
-
+tmp_frontend/
+.gemini/
