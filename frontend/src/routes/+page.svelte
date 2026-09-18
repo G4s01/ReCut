@@ -172,7 +172,7 @@
   }
 </script>
 
-{#snippet timeInput(label, type, updateFn)}
+{#snippet timeInput(label: string, type: 'start' | 'end', updateFn?: () => void)}
   <div class="flex-1 w-full space-y-2">
     <span class="text-xs uppercase font-bold opacity-60 ml-1">{label}</span>
     <div class="flex items-center gap-2">
@@ -454,18 +454,4 @@
   </div>
 </div>
 
-<style>
-  .custom-range-slider {
-    @apply absolute w-full h-2 appearance-none bg-transparent pointer-events-none;
-  }
-  .custom-range-slider::-webkit-slider-thumb {
-    @apply pointer-events-auto w-5 h-5 rounded-full appearance-none;
-  }
-  .custom-range-slider::-moz-range-thumb {
-    @apply pointer-events-auto w-5 h-5 border-none rounded-full;
-  }
-  .thumb-primary::-webkit-slider-thumb { @apply bg-primary; }
-  .thumb-primary::-moz-range-thumb { @apply bg-primary; }
-  .thumb-secondary::-webkit-slider-thumb { @apply bg-secondary; }
-  .thumb-secondary::-moz-range-thumb { @apply bg-secondary; }
-</style>
+
