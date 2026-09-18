@@ -34,18 +34,18 @@ Il progetto sfrutta correttamente lo stack richiesto (SvelteKit + DaisyUI + Tail
 
 Ecco la checklist step-by-step per sistemare il debito senza rompere l'app:
 
-- [ ] **Step 1: Refactoring Backend (I/O & Eccezioni)**
+- [x] **Step 1: Refactoring Backend (I/O & Eccezioni)**
   - Rendere asincrono l'I/O in `cleanup_old_files` usando `asyncio.to_thread`.
   - Introdurre la cattura di `ValueError` separata da `Exception` generica in `process_video`, ritornando uno stato HTTP 400 per input invalidi.
 
-- [ ] **Step 2: Migrazione Svelte Snippets (Frontend)**
+- [x] **Step 2: Migrazione Svelte Snippets (Frontend)**
   - Creare un `{#snippet timeInput(type, bindHours, bindMinutes, bindSeconds)}` in `+page.svelte`.
   - Sostituire l'HTML duplicato di "Start At" ed "End At" con lo snippet.
 
-- [ ] **Step 3: Pulizia CSS e DaisyUI (Frontend)**
+- [x] **Step 3: Pulizia CSS e DaisyUI (Frontend)**
   - Sostituire il codice grezzo dell'animazione di caricamento con la classe `skeleton` nativa di DaisyUI.
   - Spostare lo spaghetti-CSS dei custom range slider dal markup HTML a una classe definita in un tag `<style>` o in `app.css`.
 
-- [ ] **Step 4: Rimozione `$effect` Anti-Pattern (Frontend)**
+- [x] **Step 4: Rimozione `$effect` Anti-Pattern (Frontend)**
   - Eliminare l'`$effect` usato per aggiornare i formati (`selectedFormat`); gestire la logica direttamente nell'`onclick` dei tab di formato.
   - Disaccoppiare la logica di `fetchInfo` (debouncing) dall'`$effect`, spostandola in un vero handler `oninput` sul campo testuale o usando uno store reattivo personalizzato.

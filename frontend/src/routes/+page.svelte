@@ -317,9 +317,9 @@
 
             <!-- Format Switch -->
             <div class="space-y-4">
-              <label class="label font-bold">
+              <div class="label font-bold">
                 <span class="label-text">Media Type</span>
-              </label>
+              </div>
               
               <div class="bg-base-200 p-2 rounded-xl flex flex-col md:flex-row gap-2 w-full">
                 <button type="button" class="btn flex-1 {formatType === 'video' ? 'btn-primary shadow-lg' : 'btn-ghost'}" onclick={() => setFormatType('video')}>
@@ -427,7 +427,9 @@
             
             {#if formatType === 'video'}
               <div class="mt-4 rounded-xl overflow-hidden shadow-lg border border-success-content/20 bg-black">
-                <video src="{apiUrl}{result.file_url}" controls class="w-full aspect-video" autoplay></video>
+                <video src="{apiUrl}{result.file_url}" controls class="w-full aspect-video" autoplay>
+                  <track kind="captions" src="" srclang="en" label="English" default />
+                </video>
               </div>
             {:else}
               <div class="mt-4 p-4 rounded-xl shadow-lg border border-success-content/20 bg-base-100 text-base-content">

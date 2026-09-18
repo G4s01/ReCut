@@ -14,17 +14,17 @@ Il progetto si basa su un'architettura a container separati tramite Docker Compo
 
 - **Python (FastAPI)**:
   - Usa i **Type Hints** rigorosamente per ogni funzione e modello Pydantic.
-  - Implementa percorsi asincroni (`async def`) ove possibile.
+  - Implementa percorsi asincroni (`async def`) ove possibile. L'I/O bloccante (come `os.remove` o processi lenti) deve essere incapsulato in `asyncio.to_thread`.
   - Utilizza l'integrazione nativa del modulo Python `yt_dlp` al posto di generare subprocessi shell (`subprocess.run`), al fine di mantenere il controllo programmatico asincrono e la gestione degli errori pulita.
-  - Rispetta lo standard PEP 8.
+  - Rispetta lo standard PEP 8 e cattura le eccezioni specifiche (es. `ValueError` -> HTTP 400).
 - **Svelte / JavaScript**:
-  - Scrivi componenti Svelte con blocchi `<script lang="ts">` per godere della tipizzazione di TypeScript.
-  - Utilizza le utility class di TailwindCSS e i componenti pre-costruiti di DaisyUI per mantenere lo stile pulito e senza CSS custom, se non strettamente necessario.
+  - Scrivi codice strettamente **Svelte 5 idiomatico**: usa le Runes (`$state`, `$derived`, `$props`), evita l'uso di `$effect` per side-effect reattivi come il fetch dati (gestiscili con event handler come `oninput` o `onclick`), e usa i `{#snippet}` per eliminare HTML duplicato.
+  - Utilizza i componenti pre-costruiti di DaisyUI 5 (es. `skeleton`, `btn`, `card`) evitando di creare agglomerati di classi TailwindCSS personalizzate che sporcano il markup. Per le classi Tailwind custom (es. per gli slider), spostale in un layer `@layer components` in `app.css` o `layout.css`.
 
 ## 3. Direttive per la Gestione dei Media Locali
 
 - **Volume Condiviso**: I media scaricati devono risiedere in una directory designata (es. `/app/downloads/` nel container), configurata come Docker Volume per la persistenza tra un riavvio e l'altro (se necessario) ma isolata dal codice sorgente.
-- **Garbage Collection**: ReCut _deve_ includere un meccanismo automatico di pulizia. Implementa un task in background (tramite `BackgroundTasks` di FastAPI o simili) per eliminare in automatico i file multimediali scaricati più vecchi di 2-3 ore. Il server non deve diventare uno storage a lungo termine.
+- **Garbage Collection**: ReCut _deve_ includere un meccanismo automatico di pulizia asincrono (non bloccante). Implementa un task in background (tramite `asyncio.create_task` nel `lifespan`) per eliminare in automatico i file multimediali scaricati più vecchi di 2-3 ore. Il server non deve diventare uno storage a lungo termine.
 - **Isolamento e Sicurezza**: Effettua la sanitizzazione di ogni input dell'utente (URL e filename) per evitare path traversal o l'esecuzione di comandi malevoli, specialmente durante il passthrough verso `yt-dlp`.
 
 ## 4. Skill e Competenze Richieste all'Agente
