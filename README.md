@@ -35,11 +35,11 @@ version: "3.8"
 
 services:
   backend:
-    image: ghcr.io/g4s01/recut/backend:main
+    image: ghcr.io/g4s01/recut/backend:latest
     container_name: recut_backend
     restart: unless-stopped
     ports:
-      - "${BACKEND_PORT:-8000}:8000" # Customizable via .env file
+      - "8000:8000" # Change the first port to expose on a different host port
     volumes:
       # Map a specific local directory for the extracted clips
       - ./my-clips:/app/downloads
@@ -52,11 +52,11 @@ services:
       - recut_bridge
 
   frontend:
-    image: ghcr.io/g4s01/recut/frontend:main
+    image: ghcr.io/g4s01/recut/frontend:latest
     container_name: recut_frontend
     restart: unless-stopped
     ports:
-      - "${FRONTEND_PORT:-3000}:3000" # Customizable via .env file
+      - "3000:3000" # Change the first port to expose on a different host port
     environment:
       # Point the frontend to the backend's external URL (or use default if not set)
       - VITE_API_BASE_URL=${API_BASE_URL:-http://localhost:8000}
@@ -74,15 +74,7 @@ networks:
 ### Running the application
 
 1. Save the configuration above as `docker-compose.yml` in a directory of your choice.
-2. (Optional) Create a `.env` file in the same directory if you need to customize ports or external URLs:
-
-```env
-BACKEND_PORT=8000
-FRONTEND_PORT=3000
-API_BASE_URL=https://api.yourdomain.com
-```
-
-3. Run the following command to pull the images and start the containers in the background:
+2. Run the following command to pull the images and start the containers in the background:
 
 ```bash
 docker compose up -d
