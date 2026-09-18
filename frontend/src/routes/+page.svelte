@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Scissors, Clock, Link, Music, Video, Download, Play, AlertCircle, CheckCircle2 } from 'lucide-svelte';
+  import favicon from '$lib/assets/favicon.svg';
   import { env } from '$env/dynamic/public';
 
   let url = $state('');
@@ -210,13 +211,17 @@
   </div>
 {/snippet}
 
-<div class="hero min-h-[calc(100vh-5rem)]">
-  <div class="hero-content flex-col gap-10 w-full max-w-3xl items-center">
+<div class="hero min-h-[calc(100vh-5rem)] items-start pt-8 lg:pt-16">
+  <div class="hero-content flex-col lg:flex-row gap-10 w-full max-w-6xl items-start justify-center">
     
-    <div class="w-full space-y-6">
+    <!-- Left Column (Form) -->
+    <div class="w-full lg:w-1/2 space-y-6">
       <div class="text-center mb-8">
         <h1 class="text-3xl sm:text-5xl font-extrabold mb-4 flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary">
-          <span class="text-primary font-black tracking-tighter flex items-center drop-shadow-sm"><span class="bg-primary text-primary-content px-2 py-1 rounded-lg">Re</span>Cut</span>
+          <span class="text-primary font-black tracking-tighter flex items-center gap-2 drop-shadow-sm">
+            <img src={favicon} alt="ReCut Logo" class="w-10 h-10 sm:w-14 sm:h-14" />
+            <span class="bg-primary text-primary-content px-2 py-1 rounded-lg">Re</span>Cut
+          </span>
           <span>Clip any video. Instantly.</span>
         </h1>
       </div>
@@ -376,7 +381,7 @@
               </div>
             {/if}
 
-            <div class="aura aura-rainbow w-full">
+            <div class="w-full {!(loading || !url) ? 'aura aura-rainbow' : ''}">
               <button
                 type="submit"
                 class="btn btn-lg btn-block {formatType === 'video' ? 'btn-primary' : 'btn-secondary'} rounded-2xl text-lg font-bold shadow-xl hover:-translate-y-1 transition-transform"
@@ -395,8 +400,53 @@
       </div>
     </div>
 
-    <div class="w-full space-y-6">
-      {#if youtubeId && !result}
+    <!-- Right Column (Preview / Results) -->
+    <div class="w-full lg:w-1/2 space-y-6">
+      {#if result && !loading}
+        <div class="card bg-success text-success-content shadow-2xl overflow-hidden transform scale-100 animate-in zoom-in-95 duration-300 border-4 border-success-content/20">
+          <div class="card-body p-4 md:p-8 flex flex-col justify-center space-y-4">
+            
+            <!-- Mobile Download Button (Top) -->
+            <div class="block lg:hidden w-full mb-2">
+              <div class="aura aura-rainbow w-full">
+                <a
+                  href="{apiUrl}{result.file_url}"
+                  download={result.filename}
+                  class="btn btn-lg w-full bg-base-100 text-success hover:bg-base-200 border-none shadow-xl text-xl group h-auto py-4"
+                >
+                  <Download size={28} class="group-hover:scale-110 transition-transform mr-2"/> Download File
+                </a>
+              </div>
+            </div>
+
+            {#if formatType === 'video' || formatType === 'video_only'}
+              <div class="rounded-xl overflow-hidden shadow-lg border border-success-content/20 bg-black">
+                <video src="{apiUrl}{result.file_url}" controls class="w-full aspect-video" autoplay>
+                  <track kind="captions" src="" srclang="en" label="English" default />
+                </video>
+              </div>
+            {:else}
+              <div class="p-4 rounded-xl shadow-lg border border-success-content/20 bg-base-100 text-base-content">
+                <audio src="{apiUrl}{result.file_url}" controls class="w-full" autoplay></audio>
+              </div>
+            {/if}
+
+            <!-- Desktop Download Button (Bottom) -->
+            <div class="hidden lg:block w-full mt-4">
+              <div class="aura aura-rainbow w-full">
+                <a
+                  href="{apiUrl}{result.file_url}"
+                  download={result.filename}
+                  class="btn btn-lg w-full bg-base-100 text-success hover:bg-base-200 border-none shadow-xl text-xl group h-auto py-4"
+                >
+                  <Download size={28} class="group-hover:scale-110 transition-transform mr-2"/> Download File
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      {:else if youtubeId}
         <div class="card bg-base-100 shadow-xl border border-base-200 overflow-hidden">
           <div class="card-body p-0">
             <div class="bg-base-300 px-4 py-3 flex items-center gap-2 border-b border-base-200">
@@ -416,39 +466,12 @@
             </div>
           </div>
         </div>
-      {/if}
-
-      {#if result && !loading}
-        <div class="card bg-success text-success-content shadow-2xl overflow-hidden transform scale-100 animate-in zoom-in-95 duration-300 border-4 border-success-content/20">
-          <div class="card-body p-8 text-center space-y-4">
-            <div class="flex justify-center mb-2">
-              <CheckCircle2 size={64} class="text-success-content drop-shadow-md" />
-            </div>
-            
-            {#if formatType === 'video'}
-              <div class="mt-4 rounded-xl overflow-hidden shadow-lg border border-success-content/20 bg-black">
-                <video src="{apiUrl}{result.file_url}" controls class="w-full aspect-video" autoplay>
-                  <track kind="captions" src="" srclang="en" label="English" default />
-                </video>
-              </div>
-            {:else}
-              <div class="mt-4 p-4 rounded-xl shadow-lg border border-success-content/20 bg-base-100 text-base-content">
-                <audio src="{apiUrl}{result.file_url}" controls class="w-full" autoplay></audio>
-              </div>
-            {/if}
-
-            <div class="mt-6">
-              <div class="aura aura-rainbow w-full">
-                <a
-                  href="{apiUrl}{result.file_url}"
-                  download={result.filename}
-                  class="btn btn-lg w-full bg-base-100 text-success hover:bg-base-200 border-none shadow-xl text-xl group h-auto py-4"
-                >
-                  <Download size={28} class="group-hover:scale-110 transition-transform mr-2"/> Download File
-                </a>
-              </div>
-            </div>
-          </div>
+      {:else}
+        <!-- Desktop Empty Placeholder -->
+        <div class="hidden lg:flex flex-col items-center justify-center h-[calc(100%-1.5rem)] min-h-[400px] border-4 border-dashed border-base-300 rounded-3xl opacity-60 bg-base-100/30">
+          <Video size={64} class="mb-4 opacity-50 text-base-content" />
+          <p class="font-black text-2xl uppercase tracking-widest text-base-content/70">Preview Area</p>
+          <p class="text-base font-medium opacity-50 mt-2">Paste a link to get started</p>
         </div>
       {/if}
     </div>

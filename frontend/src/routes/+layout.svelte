@@ -28,6 +28,7 @@
 	<header class="navbar bg-base-100 shadow-sm px-4 lg:px-8 flex justify-between items-center">
 		<div class="flex-1">
 			<a href="/" class="text-2xl font-black text-primary tracking-tighter flex items-center gap-2">
+				<img src={favicon} alt="ReCut Logo" class="w-8 h-8" />
 				<span class="bg-primary text-primary-content px-2 py-1 rounded-lg">Re</span>Cut
 			</a>
 		</div>
