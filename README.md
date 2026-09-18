@@ -31,8 +31,6 @@ The recommended way to deploy ReCut is via Docker Compose. Below is a complete, 
 This configuration uses a custom **bridge network** for secure inter-container communication and specifically maps local host directories for both your downloaded clips and internal container data to guarantee persistence.
 
 ```yaml
-version: "3.8"
-
 services:
   backend:
     image: ghcr.io/g4s01/recut/backend:latest

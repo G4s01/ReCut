@@ -2,9 +2,24 @@
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import { Sun, Moon } from 'lucide-svelte';
+	import { onMount } from 'svelte';
 
 	let { children } = $props();
 	
+	let isDark = $state(false);
+
+	onMount(() => {
+		const theme = localStorage.getItem('theme');
+		if (theme === 'synthwave') {
+			isDark = true;
+		}
+	});
+
+	$effect(() => {
+		const theme = isDark ? 'synthwave' : 'cyberpunk';
+		document.documentElement.setAttribute('data-theme', theme);
+		localStorage.setItem('theme', theme);
+	});
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
@@ -18,7 +33,7 @@
 		</div>
 		<div class="flex-none">
 			<label class="swap swap-rotate btn btn-ghost btn-circle">
-				<input type="checkbox" class="theme-controller" value="synthwave" />
+				<input type="checkbox" bind:checked={isDark} />
 				<Sun class="swap-off w-6 h-6" />
 				<Moon class="swap-on w-6 h-6" />
 			</label>
