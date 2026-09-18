@@ -5,14 +5,3 @@
     dim;
 }
 
-@keyframes rainbow {
-  0% { box-shadow: 0 0 12px 2px rgba(255, 0, 0, 0.6); }
-  25% { box-shadow: 0 0 12px 2px rgba(255, 165, 0, 0.6); }
-  50% { box-shadow: 0 0 12px 2px rgba(0, 255, 0, 0.6); }
-  75% { box-shadow: 0 0 12px 2px rgba(0, 0, 255, 0.6); }
-  100% { box-shadow: 0 0 12px 2px rgba(238, 130, 238, 0.6); }
-}
-
-.aura-rainbow {
-  animation: rainbow 2s linear infinite alternate;
-}

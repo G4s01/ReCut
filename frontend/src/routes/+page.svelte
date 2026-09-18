@@ -316,13 +316,13 @@
               </label>
               
               <div class="bg-base-200 p-2 rounded-xl flex flex-col md:flex-row gap-2 w-full">
-                <button type="button" class="btn flex-1 {formatType === 'video' ? 'btn-primary shadow-lg aura-rainbow' : 'btn-ghost'}" onclick={() => formatType = 'video'}>
+                <button type="button" class="btn flex-1 {formatType === 'video' ? 'btn-primary shadow-lg' : 'btn-ghost'}" onclick={() => formatType = 'video'}>
                   <Video size={18} /> Audio & Video
                 </button>
-                <button type="button" class="btn flex-1 {formatType === 'video_only' ? 'btn-accent shadow-lg aura-rainbow' : 'btn-ghost'}" onclick={() => formatType = 'video_only'}>
+                <button type="button" class="btn flex-1 {formatType === 'video_only' ? 'btn-accent shadow-lg' : 'btn-ghost'}" onclick={() => formatType = 'video_only'}>
                   <Video size={18} /> Video Only
                 </button>
-                <button type="button" class="btn flex-1 {formatType === 'audio' ? 'btn-secondary shadow-lg aura-rainbow' : 'btn-ghost'}" onclick={() => formatType = 'audio'}>
+                <button type="button" class="btn flex-1 {formatType === 'audio' ? 'btn-secondary shadow-lg' : 'btn-ghost'}" onclick={() => formatType = 'audio'}>
                   <Music size={18} /> Audio Only
                 </button>
               </div>
@@ -370,18 +370,20 @@
               </div>
             {/if}
 
-            <button
-              type="submit"
-              class="btn btn-lg btn-block {formatType === 'video' ? 'btn-primary' : 'btn-secondary'} rounded-2xl text-lg font-bold shadow-xl hover:-translate-y-1 transition-transform aura-rainbow"
-              disabled={loading || !url}
-            >
+            <div class="aura aura-rainbow w-full">
+              <button
+                type="submit"
+                class="btn btn-lg btn-block {formatType === 'video' ? 'btn-primary' : 'btn-secondary'} rounded-2xl text-lg font-bold shadow-xl hover:-translate-y-1 transition-transform"
+                disabled={loading || !url}
+              >
               {#if loading}
                 <span class="loading loading-spinner"></span>
                 Processing your clip...
               {:else}
                 <Scissors size={20} class="mr-2"/> Cut & Download
               {/if}
-            </button>
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -430,13 +432,15 @@
             {/if}
 
             <div class="mt-6">
-              <a
-                href="{apiUrl}{result.file_url}"
-                download={result.filename}
-                class="btn btn-lg w-full bg-base-100 text-success hover:bg-base-200 border-none shadow-xl text-xl group h-auto py-4 aura-rainbow"
-              >
-                <Download size={28} class="group-hover:scale-110 transition-transform mr-2"/> Download File
-              </a>
+              <div class="aura aura-rainbow w-full">
+                <a
+                  href="{apiUrl}{result.file_url}"
+                  download={result.filename}
+                  class="btn btn-lg w-full bg-base-100 text-success hover:bg-base-200 border-none shadow-xl text-xl group h-auto py-4"
+                >
+                  <Download size={28} class="group-hover:scale-110 transition-transform mr-2"/> Download File
+                </a>
+              </div>
             </div>
           </div>
         </div>

@@ -74,6 +74,9 @@ async def get_info(req: InfoRequest) -> InfoResponse:
         'quiet': True,
         'no_warnings': True,
         'extract_flat': False,
+        'source_address': '0.0.0.0',
+        'force_ipv4': True,
+        'nocheckcertificate': True,
     }
     with yt_dlp.YoutubeDL(opts) as ydl:
         try:
@@ -99,6 +102,9 @@ def process_video(req: ClipRequest) -> str:
         'outtmpl': os.path.join(DOWNLOADS_DIR, '%(id)s_%(epoch)s.%(ext)s'),
         'quiet': True,
         'no_warnings': True,
+        'source_address': '0.0.0.0',
+        'force_ipv4': True,
+        'nocheckcertificate': True,
     }
     
     if req.format in ['mp3', 'wav']:
