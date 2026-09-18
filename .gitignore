@@ -41,4 +41,8 @@ MANIFEST
 downloads/
 media/
 tmp_frontend/
+
+#AI
 .gemini/
+.agents/
+GEMINI.md
