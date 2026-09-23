@@ -21,7 +21,21 @@
   --color-error: #ff3333;
 }
 
+:root, [data-theme="light"] {
+  --logo-glow-color-solid: rgba(0, 0, 0, 0.4);
+  --logo-glow-color-blur: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="recut-dark"] {
+  --logo-glow-color-solid: rgba(255, 255, 255, 1);
+  --logo-glow-color-blur: rgba(255, 255, 255, 0.6);
+}
+
 @layer components {
+  .logo-glow {
+    filter: drop-shadow(0 0 1.5px var(--logo-glow-color-solid)) drop-shadow(0 0 12px var(--logo-glow-color-blur));
+  }
+
   .custom-range-slider {
     @apply absolute w-full h-2 appearance-none bg-transparent pointer-events-none;
   }
