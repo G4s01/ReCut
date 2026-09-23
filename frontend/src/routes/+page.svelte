@@ -218,9 +218,7 @@
     <!-- Title Area (Centered Above Columns) -->
     <div class="w-full mb-6">
       <div class="card bg-base-100 shadow-2xl border border-base-300 p-4 sm:p-6 lg:px-8 flex flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 w-full rounded-2xl z-10 relative">
-        <div class="card bg-white p-2 rounded-xl shadow-sm shrink-0">
-          <img src={recutLogo} alt="ReCut Logo" class="h-8 sm:h-12 w-auto drop-shadow-sm" />
-        </div>
+        <img src={recutLogo} alt="ReCut Logo" class="h-8 sm:h-12 w-auto shrink-0 drop-shadow-[0_0_15px_rgba(255,255,255,0.7)]" />
         <h1 class="text-2xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary whitespace-nowrap">
           Clip any video. Instantly.
         </h1>

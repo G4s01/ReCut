@@ -29,9 +29,7 @@
 	<header class="navbar bg-base-100 shadow-sm px-4 lg:px-8 flex justify-between items-center">
 		<div class="flex-1">
 			<a href="/" data-sveltekit-reload class="flex items-center">
-				<div class="card bg-white p-1 sm:p-2 shadow-sm border border-base-300 shrink-0">
-					<img src={recutLogo} alt="ReCut Logo" class="h-6 md:h-8 w-auto" />
-				</div>
+				<img src={recutLogo} alt="ReCut Logo" class="h-6 md:h-8 w-auto drop-shadow-[0_0_12px_rgba(255,255,255,0.7)]" />
 			</a>
 		</div>
 		<div class="flex-none">
